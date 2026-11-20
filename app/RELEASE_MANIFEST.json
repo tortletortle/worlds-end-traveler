@@ -1,0 +1,29 @@
+{
+  "release": "0.5.0",
+  "regression": "PASS",
+  "browser_page_errors": 0,
+  "population_experiment_runs": 48,
+  "forest_community_experiment_runs": 70,
+  "forest_community_checks": {
+    "allRunsFinite": true,
+    "sameSeedDeterministic": true,
+    "rootSystemsPresent": true,
+    "rootUptakeCausalEffect": true,
+    "droughtAmplifiesRootStress": true,
+    "fiveTreeSpeciesPresent": true,
+    "boundedVegetation": true,
+    "fireDisturbanceApplied": true,
+    "windthrowDisturbanceApplied": true,
+    "floodDisturbanceApplied": true,
+    "pestDisturbanceApplied": true,
+    "disturbanceCausesTreeDamage": true,
+    "baselineNoForcedDisturbance": true,
+    "noRootScenarioHasNoUptake": true
+  },
+  "real_webgl2_gpu_validation": "NOT_AVAILABLE_IN_BUILD_CONTAINER",
+  "notes": [
+    "WebGL2 API stub regression passed",
+    "SwiftShader attempt returned no WebGL2 context",
+    "GPU shader compile and visual/FPS acceptance remain for user desktop browser"
+  ]
+}

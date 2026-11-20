@@ -1,0 +1,33 @@
+《世界尽头的旅行者》V0.5 — 雾隐树海森林群落版
+
+运行游戏（Windows）：
+1. 解压 worlds_end_v05.zip。
+2. 进入解压后的 app 文件夹。
+3. 在文件夹地址栏输入 cmd，执行：
+   py -m http.server 8000
+4. Chrome / Edge 打开：
+   http://127.0.0.1:8000/
+5. 点击“进入雾隐树海”。建议开启硬件加速。
+
+操作：
+WASD 移动；鼠标观察；Shift 奔跑；Space 跳跃；E 观察 / 交互；M 地图；I 生态面板；Esc 释放鼠标。
+
+V0.5 新功能：
+- 五种树种与差异化生态性状。
+- 可见地表根脉、根系扩展、根系水分与养分吸收。
+- 森林垂直层次：突出层、林冠层、亚林冠层、幼树层。
+- 火灾、风倒、洪水、病虫害局地扰动。
+- 生态面板可手动触发四种自然扰动，观察局部三维变化。
+- 低概率自然扰动与森林生态事件记录。
+
+多随机种子实验：
+10 个种子 × 7 个情景 × 360 个生态日，共 70 次森林群落实验。
+结果：experiments/V05_FOREST_MULTI_SEED_RESULTS.json
+逐次 CSV：experiments/V05_FOREST_MULTI_SEED_RUNS.csv
+汇总 CSV：experiments/V05_FOREST_MULTI_SEED_SUMMARY.csv
+
+完整回归：
+CHROMIUM=/usr/bin/chromium python tests/regression_test.py
+结果：tests/V05_REGRESSION_RESULT.json
+
+注意：当前自动化环境通过 WebGL2 API 测试替身验证逻辑和场景构建，真实 GPU 着色器编译、视觉质量和 FPS 尚未验收。请在本机支持 WebGL2 的 Chrome / Edge 上完成最终画面验收。

@@ -1,0 +1,2907 @@
+{
+  "model": "Alvira Population Ecology V0.3",
+  "worldYearDays": 120,
+  "simulatedDaysPerRun": 360,
+  "simulatedWorldYears": 3,
+  "seeds": [
+    20261118,
+    20261155,
+    20261192,
+    20261229,
+    20261266,
+    20261303,
+    20261340,
+    20261377,
+    20261414,
+    20261451,
+    20261488,
+    20261525
+  ],
+  "scenarioCount": 4,
+  "totalRuns": 48,
+  "reproducibleSameSeed": true,
+  "validationChecks": {
+    "sameSeedReproducible": true,
+    "baselineNoExtinction": true,
+    "baselineHasBirthsAndDeaths": true,
+    "seasonsAdvanceTwelveTimes": true,
+    "vegetationSuccessionObserved": true,
+    "predatorPressureRaisesPredation": true,
+    "predatorPressureReducesRabbitMean": true,
+    "droughtReducesFoxMean": true,
+    "chronicScarcityReducesTotalPopulation": true,
+    "allFinalCountsWithinSpeciesCaps": true
+  },
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "label": "基准生态",
+      "days": 360,
+      "seeds": 12,
+      "species": {
+        "deer": {
+          "mean": 14.58,
+          "sd": 2.78,
+          "min": 10,
+          "max": 18,
+          "extinctions": 0
+        },
+        "fox": {
+          "mean": 7.92,
+          "sd": 0.28,
+          "min": 7,
+          "max": 8,
+          "extinctions": 0
+        },
+        "rabbit": {
+          "mean": 16.08,
+          "sd": 1.93,
+          "min": 13,
+          "max": 20,
+          "extinctions": 0
+        },
+        "bird": {
+          "mean": 27.92,
+          "sd": 1.26,
+          "min": 25,
+          "max": 29,
+          "extinctions": 0
+        }
+      },
+      "stats": {
+        "births": {
+          "mean": 89.42,
+          "sd": 7.33
+        },
+        "deaths": {
+          "mean": 40.92,
+          "sd": 6.59
+        },
+        "predations": {
+          "mean": 10.75,
+          "sd": 3.47
+        },
+        "territoryConflicts": {
+          "mean": 54.08,
+          "sd": 3.84
+        },
+        "dispersals": {
+          "mean": 358,
+          "sd": 49.59
+        },
+        "seasonChanges": {
+          "mean": 12,
+          "sd": 0
+        },
+        "successionChanges": {
+          "mean": 7,
+          "sd": 0
+        },
+        "starvationDeaths": {
+          "mean": 0,
+          "sd": 0
+        }
+      },
+      "extinctSpeciesSeedCount": 0,
+      "succession": {
+        "meadow": {
+          "幼林": 12
+        },
+        "edge": {
+          "幼林": 12
+        },
+        "ruin": {
+          "幼林": 12
+        },
+        "grove": {
+          "成熟森林": 12
+        },
+        "mother": {
+          "成熟森林": 12
+        },
+        "cave": {
+          "成熟森林": 12
+        }
+      },
+      "seedResults": [
+        {
+          "seed": 20261118,
+          "counts": {
+            "deer": 17,
+            "fox": 8,
+            "rabbit": 18,
+            "bird": 25
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 86,
+            "deaths": 36,
+            "predations": 7,
+            "territoryConflicts": 60,
+            "dispersals": 409,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.934
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.766
+            }
+          ]
+        },
+        {
+          "seed": 20261155,
+          "counts": {
+            "deer": 14,
+            "fox": 8,
+            "rabbit": 20,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 88,
+            "deaths": 36,
+            "predations": 8,
+            "territoryConflicts": 55,
+            "dispersals": 372,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.943
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.943
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.728
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.947
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.824
+            }
+          ]
+        },
+        {
+          "seed": 20261192,
+          "counts": {
+            "deer": 12,
+            "fox": 8,
+            "rabbit": 18,
+            "bird": 26
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 99,
+            "deaths": 53,
+            "predations": 13,
+            "territoryConflicts": 49,
+            "dispersals": 298,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.744
+            }
+          ]
+        },
+        {
+          "seed": 20261229,
+          "counts": {
+            "deer": 10,
+            "fox": 8,
+            "rabbit": 16,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 84,
+            "deaths": 39,
+            "predations": 8,
+            "territoryConflicts": 50,
+            "dispersals": 328,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.942
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.744
+            }
+          ]
+        },
+        {
+          "seed": 20261266,
+          "counts": {
+            "deer": 14,
+            "fox": 8,
+            "rabbit": 15,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 99,
+            "deaths": 52,
+            "predations": 16,
+            "territoryConflicts": 48,
+            "dispersals": 278,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.767
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.944
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.8
+            }
+          ]
+        },
+        {
+          "seed": 20261303,
+          "counts": {
+            "deer": 18,
+            "fox": 8,
+            "rabbit": 17,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 98,
+            "deaths": 44,
+            "predations": 11,
+            "territoryConflicts": 54,
+            "dispersals": 332,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.948
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.762
+            }
+          ]
+        },
+        {
+          "seed": 20261340,
+          "counts": {
+            "deer": 15,
+            "fox": 8,
+            "rabbit": 14,
+            "bird": 27
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 91,
+            "deaths": 45,
+            "predations": 15,
+            "territoryConflicts": 56,
+            "dispersals": 305,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.943
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.944
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.8
+            }
+          ]
+        },
+        {
+          "seed": 20261377,
+          "counts": {
+            "deer": 17,
+            "fox": 8,
+            "rabbit": 15,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 85,
+            "deaths": 35,
+            "predations": 5,
+            "territoryConflicts": 52,
+            "dispersals": 365,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.939
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.941
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.764
+            }
+          ]
+        },
+        {
+          "seed": 20261414,
+          "counts": {
+            "deer": 13,
+            "fox": 7,
+            "rabbit": 16,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 80,
+            "deaths": 33,
+            "predations": 13,
+            "territoryConflicts": 61,
+            "dispersals": 430,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.943
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.938
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.796
+            }
+          ]
+        },
+        {
+          "seed": 20261451,
+          "counts": {
+            "deer": 10,
+            "fox": 8,
+            "rabbit": 13,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 78,
+            "deaths": 37,
+            "predations": 14,
+            "territoryConflicts": 55,
+            "dispersals": 427,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.951
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.796
+            }
+          ]
+        },
+        {
+          "seed": 20261488,
+          "counts": {
+            "deer": 17,
+            "fox": 8,
+            "rabbit": 17,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 99,
+            "deaths": 46,
+            "predations": 12,
+            "territoryConflicts": 56,
+            "dispersals": 347,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.939
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.768
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.939
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.764
+            }
+          ]
+        },
+        {
+          "seed": 20261525,
+          "counts": {
+            "deer": 18,
+            "fox": 8,
+            "rabbit": 14,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 86,
+            "deaths": 35,
+            "predations": 7,
+            "territoryConflicts": 53,
+            "dispersals": 405,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.945
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.936
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.777
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "winter_drought",
+      "label": "冬季干旱",
+      "days": 360,
+      "seeds": 12,
+      "species": {
+        "deer": {
+          "mean": 14.25,
+          "sd": 2.62,
+          "min": 9,
+          "max": 18,
+          "extinctions": 0
+        },
+        "fox": {
+          "mean": 4.92,
+          "sd": 0.28,
+          "min": 4,
+          "max": 5,
+          "extinctions": 0
+        },
+        "rabbit": {
+          "mean": 18.17,
+          "sd": 2.41,
+          "min": 15,
+          "max": 21,
+          "extinctions": 0
+        },
+        "bird": {
+          "mean": 27.67,
+          "sd": 1.18,
+          "min": 26,
+          "max": 30,
+          "extinctions": 0
+        }
+      },
+      "stats": {
+        "births": {
+          "mean": 83.17,
+          "sd": 4.72
+        },
+        "deaths": {
+          "mean": 36.17,
+          "sd": 4.22
+        },
+        "predations": {
+          "mean": 8.33,
+          "sd": 2.49
+        },
+        "territoryConflicts": {
+          "mean": 50.5,
+          "sd": 4.84
+        },
+        "dispersals": {
+          "mean": 359.75,
+          "sd": 49.42
+        },
+        "seasonChanges": {
+          "mean": 12,
+          "sd": 0
+        },
+        "successionChanges": {
+          "mean": 7,
+          "sd": 0
+        },
+        "starvationDeaths": {
+          "mean": 0,
+          "sd": 0
+        }
+      },
+      "extinctSpeciesSeedCount": 0,
+      "succession": {
+        "meadow": {
+          "幼林": 12
+        },
+        "edge": {
+          "幼林": 12
+        },
+        "ruin": {
+          "幼林": 12
+        },
+        "grove": {
+          "成熟森林": 12
+        },
+        "mother": {
+          "成熟森林": 12
+        },
+        "cave": {
+          "成熟森林": 12
+        }
+      },
+      "seedResults": [
+        {
+          "seed": 20261118,
+          "counts": {
+            "deer": 14,
+            "fox": 5,
+            "rabbit": 16,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 80,
+            "deaths": 34,
+            "predations": 9,
+            "territoryConflicts": 56,
+            "dispersals": 442,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.941
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.947
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.79
+            }
+          ]
+        },
+        {
+          "seed": 20261155,
+          "counts": {
+            "deer": 13,
+            "fox": 5,
+            "rabbit": 20,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 79,
+            "deaths": 31,
+            "predations": 4,
+            "territoryConflicts": 48,
+            "dispersals": 357,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.74
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.762
+            }
+          ]
+        },
+        {
+          "seed": 20261192,
+          "counts": {
+            "deer": 13,
+            "fox": 5,
+            "rabbit": 20,
+            "bird": 26
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 86,
+            "deaths": 40,
+            "predations": 11,
+            "territoryConflicts": 45,
+            "dispersals": 308,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.698
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.946
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.756
+            }
+          ]
+        },
+        {
+          "seed": 20261229,
+          "counts": {
+            "deer": 15,
+            "fox": 5,
+            "rabbit": 15,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 87,
+            "deaths": 42,
+            "predations": 9,
+            "territoryConflicts": 52,
+            "dispersals": 361,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.942
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.937
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.948
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.743
+            }
+          ]
+        },
+        {
+          "seed": 20261266,
+          "counts": {
+            "deer": 17,
+            "fox": 5,
+            "rabbit": 16,
+            "bird": 27
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 86,
+            "deaths": 39,
+            "predations": 8,
+            "territoryConflicts": 43,
+            "dispersals": 307,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.768
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.788
+            }
+          ]
+        },
+        {
+          "seed": 20261303,
+          "counts": {
+            "deer": 17,
+            "fox": 5,
+            "rabbit": 21,
+            "bird": 26
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 86,
+            "deaths": 35,
+            "predations": 5,
+            "territoryConflicts": 53,
+            "dispersals": 388,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.728
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.781
+            }
+          ]
+        },
+        {
+          "seed": 20261340,
+          "counts": {
+            "deer": 11,
+            "fox": 5,
+            "rabbit": 15,
+            "bird": 26
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 78,
+            "deaths": 39,
+            "predations": 6,
+            "territoryConflicts": 54,
+            "dispersals": 361,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.781
+            }
+          ]
+        },
+        {
+          "seed": 20261377,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 17,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 82,
+            "deaths": 38,
+            "predations": 11,
+            "territoryConflicts": 41,
+            "dispersals": 276,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.745
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.935
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.796
+            }
+          ]
+        },
+        {
+          "seed": 20261414,
+          "counts": {
+            "deer": 16,
+            "fox": 5,
+            "rabbit": 21,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 81,
+            "deaths": 29,
+            "predations": 8,
+            "territoryConflicts": 56,
+            "dispersals": 426,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.941
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.724
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.76
+            }
+          ]
+        },
+        {
+          "seed": 20261451,
+          "counts": {
+            "deer": 9,
+            "fox": 4,
+            "rabbit": 20,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 76,
+            "deaths": 33,
+            "predations": 9,
+            "territoryConflicts": 54,
+            "dispersals": 393,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.946
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.807
+            }
+          ]
+        },
+        {
+          "seed": 20261488,
+          "counts": {
+            "deer": 16,
+            "fox": 5,
+            "rabbit": 21,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 94,
+            "deaths": 42,
+            "predations": 13,
+            "territoryConflicts": 52,
+            "dispersals": 307,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.942
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.94
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.763
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.935
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.778
+            }
+          ]
+        },
+        {
+          "seed": 20261525,
+          "counts": {
+            "deer": 18,
+            "fox": 5,
+            "rabbit": 16,
+            "bird": 30
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 83,
+            "deaths": 32,
+            "predations": 7,
+            "territoryConflicts": 52,
+            "dispersals": 391,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.94
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.943
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.786
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "predator_pressure",
+      "label": "高捕食者压力",
+      "days": 360,
+      "seeds": 12,
+      "species": {
+        "deer": {
+          "mean": 15.17,
+          "sd": 2.19,
+          "min": 11,
+          "max": 18,
+          "extinctions": 0
+        },
+        "fox": {
+          "mean": 8,
+          "sd": 0,
+          "min": 8,
+          "max": 8,
+          "extinctions": 0
+        },
+        "rabbit": {
+          "mean": 13.67,
+          "sd": 5.36,
+          "min": 0,
+          "max": 20,
+          "extinctions": 1
+        },
+        "bird": {
+          "mean": 27.58,
+          "sd": 2.53,
+          "min": 20,
+          "max": 30,
+          "extinctions": 0
+        }
+      },
+      "stats": {
+        "births": {
+          "mean": 121.92,
+          "sd": 23.14
+        },
+        "deaths": {
+          "mean": 79.5,
+          "sd": 19.36
+        },
+        "predations": {
+          "mean": 61.42,
+          "sd": 16.48
+        },
+        "territoryConflicts": {
+          "mean": 44.42,
+          "sd": 14.67
+        },
+        "dispersals": {
+          "mean": 212.83,
+          "sd": 127.44
+        },
+        "seasonChanges": {
+          "mean": 12,
+          "sd": 0
+        },
+        "successionChanges": {
+          "mean": 7,
+          "sd": 0
+        },
+        "starvationDeaths": {
+          "mean": 0.17,
+          "sd": 0.37
+        }
+      },
+      "extinctSpeciesSeedCount": 1,
+      "succession": {
+        "meadow": {
+          "幼林": 12
+        },
+        "edge": {
+          "幼林": 12
+        },
+        "ruin": {
+          "幼林": 12
+        },
+        "grove": {
+          "成熟森林": 12
+        },
+        "mother": {
+          "成熟森林": 12
+        },
+        "cave": {
+          "成熟森林": 12
+        }
+      },
+      "seedResults": [
+        {
+          "seed": 20261118,
+          "counts": {
+            "deer": 17,
+            "fox": 8,
+            "rabbit": 17,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 137,
+            "deaths": 88,
+            "predations": 71,
+            "territoryConflicts": 47,
+            "dispersals": 187,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.938
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.937
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.809
+            }
+          ]
+        },
+        {
+          "seed": 20261155,
+          "counts": {
+            "deer": 13,
+            "fox": 8,
+            "rabbit": 18,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 136,
+            "deaths": 90,
+            "predations": 72,
+            "territoryConflicts": 51,
+            "dispersals": 251,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.763
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.951
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.818
+            }
+          ]
+        },
+        {
+          "seed": 20261192,
+          "counts": {
+            "deer": 16,
+            "fox": 8,
+            "rabbit": 11,
+            "bird": 26
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 129,
+            "deaths": 90,
+            "predations": 65,
+            "territoryConflicts": 42,
+            "dispersals": 166,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.948
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.879
+            }
+          ]
+        },
+        {
+          "seed": 20261229,
+          "counts": {
+            "deer": 15,
+            "fox": 8,
+            "rabbit": 13,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 125,
+            "deaths": 83,
+            "predations": 62,
+            "territoryConflicts": 44,
+            "dispersals": 223,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.947
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.889
+            }
+          ]
+        },
+        {
+          "seed": 20261266,
+          "counts": {
+            "deer": 16,
+            "fox": 8,
+            "rabbit": 14,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 142,
+            "deaths": 97,
+            "predations": 79,
+            "territoryConflicts": 78,
+            "dispersals": 586,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 1
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.929
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.765
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.945
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.879
+            }
+          ]
+        },
+        {
+          "seed": 20261303,
+          "counts": {
+            "deer": 17,
+            "fox": 8,
+            "rabbit": 20,
+            "bird": 27
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 136,
+            "deaths": 86,
+            "predations": 61,
+            "territoryConflicts": 54,
+            "dispersals": 242,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.928
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.946
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.871
+            }
+          ]
+        },
+        {
+          "seed": 20261340,
+          "counts": {
+            "deer": 14,
+            "fox": 8,
+            "rabbit": 11,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 118,
+            "deaths": 87,
+            "predations": 67,
+            "territoryConflicts": 47,
+            "dispersals": 200,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.759
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.875
+            }
+          ]
+        },
+        {
+          "seed": 20261377,
+          "counts": {
+            "deer": 11,
+            "fox": 8,
+            "rabbit": 20,
+            "bird": 27
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 111,
+            "deaths": 67,
+            "predations": 58,
+            "territoryConflicts": 33,
+            "dispersals": 113,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.768
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261414,
+          "counts": {
+            "deer": 18,
+            "fox": 8,
+            "rabbit": 9,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 117,
+            "deaths": 75,
+            "predations": 63,
+            "territoryConflicts": 26,
+            "dispersals": 104,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.763
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261451,
+          "counts": {
+            "deer": 15,
+            "fox": 8,
+            "rabbit": 0,
+            "bird": 30
+          },
+          "extinctions": [
+            "rabbit"
+          ],
+          "stats": {
+            "births": 51,
+            "deaths": 20,
+            "predations": 10,
+            "territoryConflicts": 16,
+            "dispersals": 46,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 1
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261488,
+          "counts": {
+            "deer": 12,
+            "fox": 8,
+            "rabbit": 17,
+            "bird": 29
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 130,
+            "deaths": 86,
+            "predations": 61,
+            "territoryConflicts": 49,
+            "dispersals": 202,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.948
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.851
+            }
+          ]
+        },
+        {
+          "seed": 20261525,
+          "counts": {
+            "deer": 18,
+            "fox": 8,
+            "rabbit": 14,
+            "bird": 28
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 131,
+            "deaths": 85,
+            "predations": 68,
+            "territoryConflicts": 46,
+            "dispersals": 234,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.931
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.93
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.852
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "chronic_scarcity",
+      "label": "长期食物短缺",
+      "days": 360,
+      "seeds": 12,
+      "species": {
+        "deer": {
+          "mean": 11.92,
+          "sd": 0.28,
+          "min": 11,
+          "max": 12,
+          "extinctions": 0
+        },
+        "fox": {
+          "mean": 5,
+          "sd": 0,
+          "min": 5,
+          "max": 5,
+          "extinctions": 0
+        },
+        "rabbit": {
+          "mean": 13.25,
+          "sd": 1.79,
+          "min": 10,
+          "max": 17,
+          "extinctions": 0
+        },
+        "bird": {
+          "mean": 19.25,
+          "sd": 0.83,
+          "min": 18,
+          "max": 20,
+          "extinctions": 0
+        }
+      },
+      "stats": {
+        "births": {
+          "mean": 59.17,
+          "sd": 4.3
+        },
+        "deaths": {
+          "mean": 27.75,
+          "sd": 3.24
+        },
+        "predations": {
+          "mean": 11.25,
+          "sd": 3.54
+        },
+        "territoryConflicts": {
+          "mean": 13.25,
+          "sd": 1.74
+        },
+        "dispersals": {
+          "mean": 30.5,
+          "sd": 2.43
+        },
+        "seasonChanges": {
+          "mean": 12,
+          "sd": 0
+        },
+        "successionChanges": {
+          "mean": 7,
+          "sd": 0
+        },
+        "starvationDeaths": {
+          "mean": 0,
+          "sd": 0
+        }
+      },
+      "extinctSpeciesSeedCount": 0,
+      "succession": {
+        "meadow": {
+          "幼林": 12
+        },
+        "edge": {
+          "幼林": 12
+        },
+        "ruin": {
+          "幼林": 12
+        },
+        "grove": {
+          "成熟森林": 12
+        },
+        "mother": {
+          "成熟森林": 12
+        },
+        "cave": {
+          "成熟森林": 12
+        }
+      },
+      "seedResults": [
+        {
+          "seed": 20261118,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 12,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 59,
+            "deaths": 28,
+            "predations": 12,
+            "territoryConflicts": 14,
+            "dispersals": 32,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261155,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 16,
+            "bird": 18
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 61,
+            "deaths": 28,
+            "predations": 15,
+            "territoryConflicts": 14,
+            "dispersals": 34,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261192,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 13,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 63,
+            "deaths": 31,
+            "predations": 12,
+            "territoryConflicts": 15,
+            "dispersals": 33,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261229,
+          "counts": {
+            "deer": 11,
+            "fox": 5,
+            "rabbit": 10,
+            "bird": 18
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 54,
+            "deaths": 28,
+            "predations": 6,
+            "territoryConflicts": 9,
+            "dispersals": 26,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.944
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.91
+            }
+          ]
+        },
+        {
+          "seed": 20261266,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 13,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 58,
+            "deaths": 26,
+            "predations": 11,
+            "territoryConflicts": 15,
+            "dispersals": 31,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261303,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 12,
+            "bird": 19
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 58,
+            "deaths": 28,
+            "predations": 8,
+            "territoryConflicts": 11,
+            "dispersals": 30,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.952
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261340,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 14,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 60,
+            "deaths": 27,
+            "predations": 10,
+            "territoryConflicts": 14,
+            "dispersals": 31,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.951
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261377,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 13,
+            "bird": 19
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 57,
+            "deaths": 26,
+            "predations": 9,
+            "territoryConflicts": 13,
+            "dispersals": 31,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261414,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 13,
+            "bird": 18
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 58,
+            "deaths": 28,
+            "predations": 13,
+            "territoryConflicts": 15,
+            "dispersals": 30,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.804
+            }
+          ]
+        },
+        {
+          "seed": 20261451,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 12,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 56,
+            "deaths": 25,
+            "predations": 11,
+            "territoryConflicts": 14,
+            "dispersals": 29,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.949
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261488,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 17,
+            "bird": 19
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 71,
+            "deaths": 36,
+            "predations": 20,
+            "territoryConflicts": 13,
+            "dispersals": 33,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.95
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.94
+            }
+          ]
+        },
+        {
+          "seed": 20261525,
+          "counts": {
+            "deer": 12,
+            "fox": 5,
+            "rabbit": 14,
+            "bird": 20
+          },
+          "extinctions": [],
+          "stats": {
+            "births": 55,
+            "deaths": 22,
+            "predations": 8,
+            "territoryConflicts": 12,
+            "dispersals": 26,
+            "seasonChanges": 12,
+            "successionChanges": 7,
+            "starvationDeaths": 0
+          },
+          "stages": [
+            {
+              "id": "meadow",
+              "stage": "幼林",
+              "biomass": 0.946
+            },
+            {
+              "id": "edge",
+              "stage": "幼林",
+              "biomass": 0.944
+            },
+            {
+              "id": "ruin",
+              "stage": "幼林",
+              "biomass": 0.77
+            },
+            {
+              "id": "grove",
+              "stage": "成熟森林",
+              "biomass": 0.943
+            },
+            {
+              "id": "mother",
+              "stage": "成熟森林",
+              "biomass": 0.953
+            },
+            {
+              "id": "cave",
+              "stage": "成熟森林",
+              "biomass": 0.819
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

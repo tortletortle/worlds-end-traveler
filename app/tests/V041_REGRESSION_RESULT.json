@@ -1,0 +1,219 @@
+{
+  "result": "PASS",
+  "v01_regressions": [
+    "terrain mesh",
+    "8 landmarks",
+    "keyboard movement",
+    "landmark discovery",
+    "cave enter/exit",
+    "map"
+  ],
+  "v02_regressions": [
+    "4 species",
+    "autonomous movement",
+    "drink/forage/hunt",
+    "predation",
+    "food depletion",
+    "food regeneration",
+    "observation"
+  ],
+  "v041_regressions": [
+    "256 spatial vegetation cells",
+    "per-tree live mesh regeneration",
+    "surviving tree growth",
+    "seasonal canopy reduction and color palette",
+    "animated autumn falling-leaf mesh",
+    "winter deciduous leaf-off / evergreen retention",
+    "seedling meshes",
+    "dead snag and fallen-log meshes",
+    "herbivory reduces grass and shrub cell values",
+    "trampling creates visible ground marks",
+    "drought creates dead snags",
+    "dynamic render revision and UI counts"
+  ],
+  "v03_regressions": [
+    "age structure",
+    "births",
+    "natural deaths",
+    "predation deaths",
+    "season changes",
+    "territory competition",
+    "dispersal",
+    "vegetation succession",
+    "population caps",
+    "UI age/succession panels"
+  ],
+  "multi_seed": {
+    "result": "PASS",
+    "totalRuns": 48,
+    "days": 360,
+    "validationChecks": {
+      "sameSeedReproducible": true,
+      "baselineNoExtinction": true,
+      "baselineHasBirthsAndDeaths": true,
+      "seasonsAdvanceTwelveTimes": true,
+      "vegetationSuccessionObserved": true,
+      "predatorPressureRaisesPredation": true,
+      "predatorPressureReducesRabbitMean": true,
+      "droughtReducesFoxMean": true,
+      "chronicScarcityReducesTotalPopulation": true,
+      "allFinalCountsWithinSpeciesCaps": true
+    },
+    "scenarios": [
+      {
+        "scenario": "baseline",
+        "species": {
+          "deer": {
+            "mean": 14.58,
+            "sd": 2.78,
+            "min": 10,
+            "max": 18,
+            "extinctions": 0
+          },
+          "fox": {
+            "mean": 7.92,
+            "sd": 0.28,
+            "min": 7,
+            "max": 8,
+            "extinctions": 0
+          },
+          "rabbit": {
+            "mean": 16.08,
+            "sd": 1.93,
+            "min": 13,
+            "max": 20,
+            "extinctions": 0
+          },
+          "bird": {
+            "mean": 27.92,
+            "sd": 1.26,
+            "min": 25,
+            "max": 29,
+            "extinctions": 0
+          }
+        },
+        "births": 89.42,
+        "deaths": 40.92,
+        "predations": 10.75,
+        "territoryConflicts": 54.08,
+        "extinctSpeciesSeedCount": 0
+      },
+      {
+        "scenario": "winter_drought",
+        "species": {
+          "deer": {
+            "mean": 14.25,
+            "sd": 2.62,
+            "min": 9,
+            "max": 18,
+            "extinctions": 0
+          },
+          "fox": {
+            "mean": 4.92,
+            "sd": 0.28,
+            "min": 4,
+            "max": 5,
+            "extinctions": 0
+          },
+          "rabbit": {
+            "mean": 18.17,
+            "sd": 2.41,
+            "min": 15,
+            "max": 21,
+            "extinctions": 0
+          },
+          "bird": {
+            "mean": 27.67,
+            "sd": 1.18,
+            "min": 26,
+            "max": 30,
+            "extinctions": 0
+          }
+        },
+        "births": 83.17,
+        "deaths": 36.17,
+        "predations": 8.33,
+        "territoryConflicts": 50.5,
+        "extinctSpeciesSeedCount": 0
+      },
+      {
+        "scenario": "predator_pressure",
+        "species": {
+          "deer": {
+            "mean": 15.17,
+            "sd": 2.19,
+            "min": 11,
+            "max": 18,
+            "extinctions": 0
+          },
+          "fox": {
+            "mean": 8,
+            "sd": 0,
+            "min": 8,
+            "max": 8,
+            "extinctions": 0
+          },
+          "rabbit": {
+            "mean": 13.67,
+            "sd": 5.36,
+            "min": 0,
+            "max": 20,
+            "extinctions": 1
+          },
+          "bird": {
+            "mean": 27.58,
+            "sd": 2.53,
+            "min": 20,
+            "max": 30,
+            "extinctions": 0
+          }
+        },
+        "births": 121.92,
+        "deaths": 79.5,
+        "predations": 61.42,
+        "territoryConflicts": 44.42,
+        "extinctSpeciesSeedCount": 1
+      },
+      {
+        "scenario": "chronic_scarcity",
+        "species": {
+          "deer": {
+            "mean": 11.92,
+            "sd": 0.28,
+            "min": 11,
+            "max": 12,
+            "extinctions": 0
+          },
+          "fox": {
+            "mean": 5,
+            "sd": 0,
+            "min": 5,
+            "max": 5,
+            "extinctions": 0
+          },
+          "rabbit": {
+            "mean": 13.25,
+            "sd": 1.79,
+            "min": 10,
+            "max": 17,
+            "extinctions": 0
+          },
+          "bird": {
+            "mean": 19.25,
+            "sd": 0.83,
+            "min": 18,
+            "max": 20,
+            "extinctions": 0
+          }
+        },
+        "births": 59.17,
+        "deaths": 27.75,
+        "predations": 11.25,
+        "territoryConflicts": 13.25,
+        "extinctSpeciesSeedCount": 0
+      }
+    ]
+  },
+  "browser_errors": [],
+  "gpu_rendering": "NOT TESTED: WebGL2 API stub only; real GPU shader and visual acceptance required on desktop Chrome/Edge"
+}

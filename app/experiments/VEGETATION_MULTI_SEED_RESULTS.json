@@ -1,0 +1,77 @@
+{
+  "result": "PASS",
+  "totalRuns": 60,
+  "days": 480,
+  "checks": {
+    "allValuesFinite": true,
+    "sameSeedDeterministic": true,
+    "seasonsReachAllStates": true,
+    "animalBrowsingChangesVegetation": true,
+    "droughtReducesMoisture": true,
+    "treeRecruitmentObserved": true,
+    "treeMortalityObserved": true,
+    "boundedState": true
+  },
+  "summary": [
+    {
+      "scenario": "baseline",
+      "trees": 664.58,
+      "seedlings": 292.08,
+      "grass": 0.8916,
+      "shrub": 0.7971,
+      "canopy": 0.1199,
+      "moisture": 0.92,
+      "treeDeaths": 6.08,
+      "plantConsumption": 29.58,
+      "grazingEvents": 15360
+    },
+    {
+      "scenario": "no_herbivores",
+      "trees": 680.08,
+      "seedlings": 284.25,
+      "grass": 0.9959,
+      "shrub": 0.888,
+      "canopy": 0.1198,
+      "moisture": 0.92,
+      "treeDeaths": 6.17,
+      "plantConsumption": 0,
+      "grazingEvents": 0
+    },
+    {
+      "scenario": "heavy_grazing",
+      "trees": 647,
+      "seedlings": 273.42,
+      "grass": 0.8577,
+      "shrub": 0.7701,
+      "canopy": 0.1191,
+      "moisture": 0.92,
+      "treeDeaths": 6.25,
+      "plantConsumption": 34.89,
+      "grazingEvents": 16800
+    },
+    {
+      "scenario": "drought",
+      "trees": 335.58,
+      "seedlings": 93.58,
+      "grass": 0.7707,
+      "shrub": 0.5073,
+      "canopy": 0.0936,
+      "moisture": 0.2163,
+      "treeDeaths": 20.25,
+      "plantConsumption": 31.42,
+      "grazingEvents": 15360
+    },
+    {
+      "scenario": "trampling",
+      "trees": 650.25,
+      "seedlings": 281.42,
+      "grass": 0.8804,
+      "shrub": 0.7884,
+      "canopy": 0.1191,
+      "moisture": 0.92,
+      "treeDeaths": 6.25,
+      "plantConsumption": 30.81,
+      "grazingEvents": 15360
+    }
+  ]
+}

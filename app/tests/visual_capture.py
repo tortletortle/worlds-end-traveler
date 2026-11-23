@@ -46,6 +46,7 @@ def main():
                 version: gl.getParameter(gl.VERSION),
                 shading_language: gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
                 renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER),
+                alpha: gl.getContextAttributes().alpha,
             };
         }""")
         if renderer is None:
@@ -63,7 +64,8 @@ def main():
             page.screenshot(path=str(image_path), full_page=True)
             lighting = page.evaluate("window.__gameDebug.getLightingState()")
             visual = page.evaluate("window.__gameDebug.getVegetationVisualState()")
-            captures.append({"label": label, "hour": hour, "file": str(image_path), "lighting": lighting, "visual": visual})
+            sky_background = page.evaluate("getComputedStyle(document.querySelector('#gameCanvas')).backgroundImage")
+            captures.append({"label": label, "hour": hour, "file": str(image_path), "lighting": lighting, "visual": visual, "sky_background": sky_background})
         browser.close()
 
     renderer_name = renderer["renderer"] or "unknown"

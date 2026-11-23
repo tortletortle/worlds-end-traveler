@@ -62,7 +62,8 @@ def main():
             image_path = output / f"{label}.png"
             page.screenshot(path=str(image_path), full_page=True)
             lighting = page.evaluate("window.__gameDebug.getLightingState()")
-            captures.append({"label": label, "hour": hour, "file": str(image_path), "lighting": lighting})
+            visual = page.evaluate("window.__gameDebug.getVegetationVisualState()")
+            captures.append({"label": label, "hour": hour, "file": str(image_path), "lighting": lighting, "visual": visual})
         browser.close()
 
     renderer_name = renderer["renderer"] or "unknown"

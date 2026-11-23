@@ -163,3 +163,26 @@ V0.5 修复了 V0.4.1 顶点着色器使用 `uTime` 却未在顶点着色器声�
 - 完整 `game.js` 通过 JavaScript 语法解析。
 
 **限制：** 叶片是风格化几何面，不含贴图、法线贴图或真实透光；尚未完成实际渲染、阴影和性能验收。
+
+
+#### V0.6.4 可复现画面采集
+
+新增 `tests/visual_capture.py`，用于在本机支持 WebGL2 的浏览器中，以同一相机位置分别采集清晨、正午、黄昏和夜间画面，并输出 `manifest.json`（浏览器、WebGL renderer、相机和光照参数）。
+
+Windows 示例：
+
+```powershell
+# 终端 1：在 app 目录启动静态服务器
+py -m http.server 8000
+
+# 终端 2：安装依赖（首次）
+py -m pip install playwright
+py -m playwright install chromium
+
+# 采集四个时段的对照图
+py tests/visual_capture.py
+```
+
+默认使用有界面 Chromium，优先让浏览器走本机 GPU。若要指定已安装的 Chrome / Edge，可将环境变量 `CHROMIUM` 指向浏览器可执行文件。脚本会标记 SwiftShader / llvmpipe 等软件渲染器；软件渲染截图只能用于排查，不能作为 GPU 性能证据。
+
+可通过 `--camera-x`、`--camera-z`、`--yaw`、`--pitch` 固定其他取景点。四张图必须使用相同相机参数，才能进行有效 A/B 对照。

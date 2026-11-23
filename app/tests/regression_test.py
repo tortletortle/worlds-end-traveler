@@ -193,6 +193,22 @@ with sync_playwright() as p:
     assert '幼林' in page.locator('#ecoSuccession').inner_text() or '成熟森林' in page.locator('#ecoSuccession').inner_text()
     page.locator('#mapButton').click()
     assert 'show' in page.locator('#mapPanel').get_attribute('class')
+    # V0.6.2 visual regression: deterministic time-of-day lighting transitions.
+    lighting_samples=page.evaluate("""() => {
+        const out=[];
+        for (const hour of [23,6,12,18]) {
+            window.__gameDebug.setClockHour(hour);
+            out.push(window.__gameDebug.getLightingState());
+        }
+        window.__gameDebug.setClockHour(6);
+        return out;
+    }""")
+    night,dawn,noon,dusk=lighting_samples
+    assert night['sunIntensity'] < noon['sunIntensity'] * .2,lighting_samples
+    assert dawn['fogColor'][0] > dawn['fogColor'][2],dawn
+    assert night['fogColor'][2] > night['fogColor'][0],night
+    assert dawn['fogDensity'] > noon['fogDensity'],lighting_samples
+    assert dusk['twilight'] > noon['twilight'],lighting_samples
     assert not errors,errors
     browser.close()
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <meta name="theme-color" content="#101b1a" />
-<title>世界尽头的旅行者 · 雾隐树海 V0.5</title>
+<title>世界尽头的旅行者 · 雾隐树海 V0.6 视觉实验</title>
 <style>
 :root{--ink:#eaf4e9;--muted:#b9c9bc;--panel:rgba(9,20,19,.78);--line:rgba(218,239,220,.22);--gold:#e7c98a}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1718;color:var(--ink);font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}
@@ -40,7 +40,7 @@
 <div id="ecologyPanel" class="panel"><h3>雾隐树海 · 生态观察</h3><div id="ecoClock" class="ecoClock">阿尔维拉时间 · 清晨</div><div id="ecoSummary"></div><div class="ecoDivider"></div><h4>种群与年龄结构</h4><div id="ecoPopulation"></div><div class="ecoDivider"></div><h4>季节与植被演替</h4><div id="ecoSuccession"></div><div class="ecoDivider"></div><h4>三维植被生态</h4><div id="ecoVegetation"></div><div class="ecoDivider"></div><h4>森林群落与根系竞争</h4><div id="ecoForest"></div><div class="ecoDivider"></div><h4>自然扰动实验</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 10px"><button class="iconbtn" id="forestFire">模拟火灾</button><button class="iconbtn" id="forestWind">模拟风倒</button><button class="iconbtn" id="forestFlood">模拟洪水</button><button class="iconbtn" id="forestPest">模拟虫害</button></div><div class="ecoFoot">扰动作用于旅行者当前位置附近的林地。它们会改变树木健康、林下植被、枯落物与后续更新。</div><div class="ecoDivider"></div><h4>生态时间实验</h4><div style="display:flex;gap:7px;margin:7px 0 10px"><button class="iconbtn" id="advance30">推进 30 天</button><button class="iconbtn" id="advance120">推进 120 天</button></div><div class="ecoFoot">用于观察树木生长、幼苗更新、枯木倒伏和季节演替。快速推进按当前动物位置进行每日植被采样；真实迁徙轨迹请在正常游戏时间中观察。</div><div class="ecoDivider"></div><h4>最近的自然事件</h4><div id="ecoEventList" class="ecoEventList"><div class="ecoEmpty">暂时没有新的生态事件。沿着林间小径安静观察。</div></div><div class="ecoFoot">动物会繁殖、成长、竞争与死亡；食物资源随季节变化，栖息地会发生植被演替。靠近动物按 E 观察。</div></div>
 <div id="crosshair"></div><div id="bottomHint"></div><div id="toast"></div>
 <div id="help">W A S D 移动　·　鼠标转向　·　Shift 奔跑　·　Space 跳跃<br>E 观察 / 交互　·　M 地图　·　I 生态记录　·　Esc 释放鼠标</div>
-<div id="status">V0.5 · FOREST COMMUNITY ECOLOGY · ROOT NETWORK</div>
+<div id="status">V0.6 VISUAL EXPERIMENT · FOREST ASSET PASS</div>
 <div id="startScreen"><div class="startCard"><div class="kicker">A WORLD STILL GROWING</div><h1>世界尽头的旅行者</h1><div class="subtitle">THE WANDERER AT WORLD'S END</div><p>雾气从古老树冠间缓缓落下。远处传来瀑布的轰鸣，林间有某种生物刚刚经过。你来到阿尔维拉的西部边境——雾隐树海。<br>没有任务催促你。沿着道路前行，或者走进从未有人标记的小径。林间的动物会自行觅食、饮水、迁徙、繁殖与成长；四季更替会改变食物供给和森林植被。</p><button id="startButton">进入雾隐树海</button><div class="controls"><span><b>WASD</b> 行走</span><span><b>鼠标</b> 观察</span><span><b>Shift</b> 奔跑</span><span><b>E</b> 观察 / 互动</span><span><b>M</b> 地图</span><span><b>I</b> 生态记录</span></div></div></div>
 <script src="population_ecology.js"></script>
 <script src="vegetation_ecology.js"></script>

@@ -287,13 +287,23 @@ function addSeedlingMesh(wood,leaves,x,z,y,seedling,season,cellId,index){
  if(seedling.species==='pine'){for(let k=0;k<3;k++)leaves.sphere(x,y+h*(.42+k*.23),z,(.22+age*.22)*(1-k*.12),.24+age*.12,(.22+age*.22)*(1-k*.12),[.13,.32,.19],0,4,6);}
  else leaves.sphere(x,y+h*.78,z,.20+age*.38,.19+age*.22,.20+age*.34,green,0,4,6);
 }
+// V0.6 visual pass: procedural fern rosettes add a distinct understory silhouette.
+function addFernCluster(builder,x,z,y,scale,seed,season){
+ const autumn=season==='autumn',winter=season==='winter';
+ const greens=autumn?[[.48,.35,.16],[.62,.43,.20]]:winter?[[.28,.34,.24],[.36,.42,.29]]:[[.12,.34,.16],[.20,.46,.22],[.29,.53,.25]];
+ const fronds=7+(Math.abs(seed)%4);
+ for(let f=0;f<fronds;f++){const a=f*Math.PI*2/fronds+(seed%17)*.13,len=scale*(1.05+((f*7+seed)%5)*.11),rise=scale*(.42+((f*3+seed)%4)*.09),dx=Math.cos(a),dz=Math.sin(a),px=-dz,pz=dx;let prev=[x,y+.04,z];
+  for(let k=1;k<=6;k++){const t=k/6,point=[x+dx*len*t,y+.04+rise*Math.sin(t*Math.PI*.78),z+dz*len*t],width=scale*(.22*Math.sin(Math.PI*t))*(1-.22*t),col=greens[(f+k)%greens.length];if(k>1){const back=[prev[0]-px*width*.5,prev[1],prev[2]-pz*width*.5],front=[prev[0]+px*width*.5,prev[1],prev[2]+pz*width*.5];builder.tri(back,front,[point[0],point[1]+.025,point[2]],col,0,[0,1,0]);}if(k<6)for(const sign of [-1,1]){const bx=point[0]+px*width*.95*sign,bz=point[2]+pz*width*.95*sign;builder.tri(point,[bx,point[1]+.025,bz],[bx+dx*scale*.12+px*width*.2*sign,point[1]+.045,bz+dz*scale*.12+pz*width*.2*sign],col,0,[0,1,0]);}prev=point;}
+  builder.cylinder([x,y+.04,z],[x+dx*len*.72,y+rise*.55,z+dz*len*.72],.018*scale,.006*scale,[.24,.29,.13],4);
+ }
+}
 function refreshVegetationMeshes(){
  const season=vegetationState.season||populationState.season?.id||'spring',pal=seasonVegetationPalette(season);
  const wood=new Builder(),leaves=new Builder(),falling=new Builder(),roots=new Builder(),under=new Builder(),litter=new Builder();
- let liveTrees=0,seedlings=0,snags=0,shrubs=0,grassPatches=0,tracks=0,sizeTotal=0,healthTotal=0,leafFactorTotal=0;
+ let liveTrees=0,seedlings=0,snags=0,shrubs=0,grassPatches=0,tracks=0,ferns=0,sizeTotal=0,healthTotal=0,leafFactorTotal=0;
  for(const t of vegetationState.trees){if(t.alive){leafFactorTotal+=addDynamicTree(wood,leaves,falling,t,season);addSurfaceRoots(roots,t);sizeTotal+=t.size;healthTotal+=t.health;liveTrees++;}else if((t.snagDays||0)<180){addDeadTree(wood,t);snags++;}}
  for(let ci=0;ci<vegetationState.cells.length;ci++){const c=vegetationState.cells[ci],y=heightAt(c.x,c.z)+.055;
-  if(c.grass>.025){const g=clamp(c.grass,0,1);under.sphere(c.x,y,c.z,5.8*g,.055+g*.045,5.8*g,pal.grass,0,3,6);grassPatches++;}
+  if(c.grass>.025){const g=clamp(c.grass,0,1);under.sphere(c.x,y,c.z,5.8*g,.055+g*.045,5.8*g,pal.grass,0,3,6);grassPatches++;if(g>.38&&((ci*17)%5!==0)){const n=1+(ci%3);for(let fi=0;fi<n;fi++){const a=ci*2.399+fi*2.1,rr=1+fi*.85,fx=c.x+Math.cos(a)*rr,fz=c.z+Math.sin(a)*rr;addFernCluster(under,fx,fz,heightAt(fx,fz)+.08,.72+g*.62,ci*13+fi,season);ferns++;}}}
   if(c.shrub>.06){const sh=clamp(c.shrub,0,1),n=sh>.58?3:2;for(let j=0;j<n;j++){const a=(ci*2.399+j*2.1),rr=2.0+sh*2.6,xx=c.x+Math.cos(a)*rr,zz=c.z+Math.sin(a)*rr;under.sphere(xx,heightAt(xx,zz)+.55*sh,zz,.55+1.05*sh,.45+.65*sh,.55+1.05*sh,pal.shrub,0,4,6);shrubs++;}}
   if(c.disturbance>.16){const kind=c.disturbanceType||'trample',col=kind==='fire'?[.105,.095,.068]:kind==='flood'?[.39,.34,.24]:kind==='windthrow'?[.30,.22,.13]:kind==='pest'?[.32,.25,.15]:[.28,.23,.15];under.sphere(c.x-.7,y+.035,c.z+.6,1.4+3.2*c.disturbance,.035,1.3+3.0*c.disturbance,col,0,4,7);}
   if(c.trampling>.055||c.herbivory>.10){const mark=Math.max(c.trampling,c.herbivory*.55);under.sphere(c.x+.8,y+.025,c.z-.7,1.1+2.3*mark,.025,1.0+1.8*mark,[.28,.23,.15],0,3,5);if(c.trampling>.12){for(let k=0;k<Math.min(4,Math.floor(c.trampling*8));k++){const a=k*2.4,xx=c.x+Math.cos(a)*1.6,zz=c.z+Math.sin(a)*1.6;under.sphere(xx,heightAt(xx,zz)+.09,zz,.18,.035,.27,[.24,.20,.13],0,3,5);tracks++;}}}
@@ -303,7 +313,7 @@ function refreshVegetationMeshes(){
  const nextMeshes={wood:wood.mesh(),leaves:leaves.mesh(),roots:roots.mesh(),falling:falling.mesh(),understory:under.mesh(),litter:litter.mesh()};
  for(const old of Object.values(vegetationMeshes)){if(old?.vao)gl.deleteVertexArray(old.vao);for(const b of old?.buffers||[])gl.deleteBuffer(b);}
  vegetationMeshes=nextMeshes;
- vegetationVisualCounts={liveTrees,seedlings,snags,shrubs,grassPatches,tracks,rootSystems:liveTrees,forestRichness:WorldForest.snapshot(vegetationState,forestCommunity).richness,season,meanTreeSize:liveTrees?sizeTotal/liveTrees:0,meanTreeHealth:liveTrees?healthTotal/liveTrees:0,meanLeafFactor:liveTrees?leafFactorTotal/liveTrees:0};vegetationVisualRevision++;
+ vegetationVisualCounts={liveTrees,seedlings,snags,shrubs,grassPatches,ferns,tracks,rootSystems:liveTrees,forestRichness:WorldForest.snapshot(vegetationState,forestCommunity).richness,season,meanTreeSize:liveTrees?sizeTotal/liveTrees:0,meanTreeHealth:liveTrees?healthTotal/liveTrees:0,meanLeafFactor:liveTrees?leafFactorTotal/liveTrees:0};vegetationVisualRevision++;
  // Collision now follows living trees, so recruits become physical parts of the forest.
  treeColliders.length=0;for(const t of vegetationState.trees)if(t.alive)treeColliders.push([t.x,t.z,Math.max(.32,1.15*t.size)]);if(motherTreeCollider)treeColliders.push(motherTreeCollider);
 }

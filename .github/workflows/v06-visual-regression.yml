@@ -1,0 +1,29 @@
+name: V0.6 Visual Regression
+on:
+  push:
+    branches:
+      - visual/v0.6-fern-understory
+  pull_request:
+    branches:
+      - main
+jobs:
+  browser-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Playwright
+        run: python -m pip install playwright
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Run browser and ecology regressions
+        working-directory: app
+        run: python tests/regression_test.py

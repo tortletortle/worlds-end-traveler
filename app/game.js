@@ -247,26 +247,53 @@ let vegetationVisualCounts={liveTrees:0,seedlings:0,snags:0,shrubs:0,grassPatche
 function seasonVegetationPalette(season){
  const palettes={spring:{leaf:[.18,.39,.22],leaf2:[.25,.48,.27],grass:[.23,.43,.22],shrub:[.19,.38,.22]},summer:{leaf:[.12,.32,.17],leaf2:[.18,.40,.22],grass:[.22,.39,.18],shrub:[.15,.32,.18]},autumn:{leaf:[.66,.36,.13],leaf2:[.79,.49,.18],grass:[.48,.40,.20],shrub:[.54,.32,.16]},winter:{leaf:[.40,.34,.25],leaf2:[.48,.40,.29],grass:[.35,.38,.32],shrub:[.36,.34,.28]}};return palettes[season]||palettes.spring;
 }
+function treeVisualRandom(seed){let state=(Math.abs(Math.floor(seed*1009))+1)>>>0;return ()=>{state=(Math.imul(1664525,state)+1013904223)>>>0;return state/4294967296;};}
+function addNeedleSpray(builder,x,y,z,dx,dz,size,color){
+ const px=-dz,pz=dx,tip=[x+dx*size*.85,y+size*.18,z+dz*size*.85],left=[x+px*size*.48,y+size*.05,z+pz*size*.48],right=[x-px*size*.48,y+size*.05,z-pz*size*.48];
+ builder.tri([x,y,z],left,tip,color,0,[0,1,0]);builder.tri([x,y,z],tip,right,color,0,[0,1,0]);
+ const mx=x+dx*size*.4,my=y+size*.14,mz=z+dz*size*.4;
+ builder.tri([mx,my,mz],[mx+px*size*.26,my+size*.06,mz+pz*size*.26],[mx+dx*size*.58,my+size*.22,mz+dz*size*.58],color,0,[0,1,0]);
+ builder.tri([mx,my,mz],[mx-px*size*.26,my+size*.06,mz-pz*size*.26],[mx+dx*size*.58,my+size*.22,mz+dz*size*.58],color,0,[0,1,0]);
+}
 function addDynamicTree(wood,leaves,falling,t,season){
- const x=t.x,z=t.z,y=heightAt(x,z),scale=clamp(t.size,.16,1.85),seed=t.seed||0;
- const h=(8+(Math.abs(seed)%5))*scale, trunkR=Math.max(.055,.34*scale), health=clamp(t.health,.05,1), species=t.species||'broadleaf';
+ const x=t.x,z=t.z,y=heightAt(x,z),scale=clamp(t.size,.16,1.85),seed=t.seed||0,rand=treeVisualRandom(seed);
+ const h=(8+(Math.abs(seed)%5))*scale,trunkR=Math.max(.055,.34*scale),health=clamp(t.health,.05,1),species=t.species||'broadleaf';
  const pine=species==='pine'||species==='cedar',willow=species==='willow',birch=species==='birch';
  const bark=birch?[.70,.67,.53]:willow?[.30,.23,.16]:health<.3?[.30,.24,.16]:[.25,.18,.12];
- wood.cylinder([x,y,z],[x,y+h,z],trunkR*1.25,trunkR*.48,bark,7);
- for(let k=0;k<5;k++){
-  const a=(seed*.71+k*2.399),by=y+h*(.38+k*.105),len=h*(.18+(k%2)*.035),ex=x+Math.cos(a)*len,ez=z+Math.sin(a)*len;
-  const ey=willow?by+len*.18:by+len*.52;
-  wood.cylinder([x,by,z],[ex,ey,ez],Math.max(.035,trunkR*.43),Math.max(.018,trunkR*.13),bark,5);
- }
+ wood.cylinder([x,y,z],[x,y+h,z],trunkR*1.25,trunkR*.48,bark,8);
+ if(birch){for(let k=0;k<6;k++){const by=y+h*(.20+k*.115);wood.cylinder([x,by,z],[x,by+.035*scale,z],trunkR*(1.08-k*.055),trunkR*(1.06-k*.055),[.25,.24,.19],7);}}
  let leafFactor=pine?.94:(season==='autumn'?.52:season==='winter'?.10:season==='spring'?.88:1);leafFactor*=.28+.72*health;
  if(leafFactor>.035){
   const pal=seasonVegetationPalette(season);
   let c1=species==='pine'?[.13,.31,.19]:species==='cedar'?[.10,.27,.17]:species==='willow'?[.27,.43,.23]:species==='birch'?[.31,.48,.24]:pal.leaf;
   let c2=species==='pine'?[.16,.36,.21]:species==='cedar'?[.14,.33,.20]:species==='willow'?[.38,.53,.29]:species==='birch'?[.42,.57,.30]:pal.leaf2;
   if(health<.32){c1=[.39,.29,.16];c2=[.48,.34,.17];}
-  if(pine){const tiers=species==='cedar'?5:4;for(let k=0;k<tiers;k++){const f=.36+k*.135,r=(species==='cedar'?2.9:2.45-k*.28)*scale;leaves.sphere(x,y+h*f,z,r*leafFactor,Math.max(.25,1.7*scale),r*leafFactor,k%2?c2:c1,0,5,7);}}
-  else if(willow){for(let k=0;k<6;k++){const a=seed*.37+k*1.047,rr=2.0*scale,fx=x+Math.cos(a)*rr,fz=z+Math.sin(a)*rr;leaves.sphere(fx,y+h*.76-(k%2)*.6,fz,1.05*scale*leafFactor,2.15*scale*leafFactor,1.05*scale*leafFactor,k%2?c2:c1,0,5,7);}}
-  else {const r=leafFactor,canopyScale=birch?.78:1;leaves.sphere(x,y+h*.82,z,2.5*scale*r*canopyScale,3.0*scale*r*canopyScale,2.4*scale*r*canopyScale,c1,0,6,8);leaves.sphere(x-1.45*scale*r,y+h*.77,z+.65*scale*r,2.0*scale*r*canopyScale,2.25*scale*r*canopyScale,2.0*scale*r*canopyScale,c2,0,6,8);leaves.sphere(x+1.45*scale*r,y+h*.88,z-.55*scale*r,2.1*scale*r*canopyScale,2.45*scale*r*canopyScale,2.0*scale*r*canopyScale,c1,0,6,8);leaves.sphere(x+.2*scale*r,y+h*1.03,z+.25*scale*r,1.75*scale*r*canopyScale,1.95*scale*r*canopyScale,1.7*scale*r*canopyScale,c2,0,6,8);}
+  if(pine){
+   const tiers=species==='cedar'?5:4,branchCount=species==='cedar'?6:5;
+   for(let k=0;k<tiers;k++){const f=.34+k*(species==='cedar'?.125:.15),tierRadius=(species==='cedar'?2.55-k*.30:2.35-k*.34)*scale,branchY=y+h*f;
+    for(let j=0;j<branchCount;j++){const a=j*Math.PI*2/branchCount+seed*.31+k*.47,dx=Math.cos(a),dz=Math.sin(a),reach=tierRadius*(.82+rand()*.22),endY=branchY-.28*scale;
+     wood.cylinder([x,branchY,z],[x+dx*reach,endY,z+dz*reach],.105*scale,.026*scale,bark,5);
+     for(const q of [.30,.58,.84]){const bx=x+dx*reach*q,by=branchY-.28*scale*q,bz=z+dz*reach*q;addNeedleSpray(leaves,bx,by,bz,dx,dz,(.72+.12*rand())*scale*leafFactor,k%2?c2:c1);}
+    }
+   }
+  }else if(willow){
+   const crownY=y+h*.78;
+   for(let k=0;k<9;k++){const a=k*Math.PI*2/9+seed*.23,dx=Math.cos(a),dz=Math.sin(a),reach=(1.75+rand()*.55)*scale,drop=(.55+rand()*.55)*scale,cx=x+dx*reach,cz=z+dz*reach,cy=crownY-drop;
+    wood.cylinder([x,y+h*.72,z],[cx,cy+.35*scale,cz],.095*scale,.022*scale,bark,5);
+    leaves.sphere(cx,cy,cz,.62*scale*leafFactor,1.05*scale*leafFactor,.62*scale*leafFactor,k%2?c2:c1,0,4,6);
+    leaves.sphere(x+dx*reach*.66,cy+.42*scale,z+dz*reach*.66,.42*scale*leafFactor,.68*scale*leafFactor,.42*scale*leafFactor,c2,0,4,5);
+   }
+  }else{
+   const canopyScale=birch?.78:1,clusterCount=birch?8:10,crownY=y+h*(birch?.79:.74),crownRadius=(birch?1.25:1.55)*scale;
+   for(let k=0;k<clusterCount;k++){const a=k*Math.PI*2/clusterCount+seed*.19,dx=Math.cos(a),dz=Math.sin(a),rad=crownRadius*(.78+rand()*.38),cx=x+dx*rad,cz=z+dz*rad,cy=crownY+(rand()-.5)*(birch?1.45:2.0)*scale;
+    const branchStart=[x,y+h*(.51+rand()*.07),z],branchEnd=[cx,cy-.24*scale,cz];wood.cylinder(branchStart,branchEnd,.095*scale,.025*scale,bark,5);
+    const rx=(.76+rand()*.26)*scale*leafFactor*canopyScale,ry=(.78+rand()*.32)*scale*leafFactor*canopyScale,rz=(.78+rand()*.25)*scale*leafFactor*canopyScale;
+    leaves.sphere(cx,cy,cz,rx,ry,rz,k%3===0?c2:c1,0,4,6);
+   }
+   const topY=crownY+(birch?.92:1.02)*scale;
+   leaves.sphere(x,topY,z,.92*scale*leafFactor*canopyScale,1.05*scale*leafFactor*canopyScale,.90*scale*leafFactor*canopyScale,c2,0,4,6);
+   leaves.sphere(x-.55*scale,topY-.45*scale,z+.45*scale,.68*scale*leafFactor*canopyScale,.72*scale*leafFactor*canopyScale,.68*scale*leafFactor*canopyScale,c1,0,4,5);
+  }
  }
  if(!pine&&season==='autumn'&&health>.22){const fallColor=health<.45?[.50,.29,.12]:[.75,.43,.15];for(let k=0;k<2+(Math.abs(seed)%2);k++){const a=seed*.37+k*2.399,fx=x+Math.cos(a)*2.0*scale,fz=z+Math.sin(a)*1.7*scale,fy=y+h*.83+2.7+(k%2)*.5;falling.quad([fx-.18,fy,fz-.07],[fx,fy+.03,fz-.16],[fx+.18,fy,fz+.08],[fx-.02,fy-.01,fz+.16],fallColor,3,[0,1,0]);}}
  return leafFactor;

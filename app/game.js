@@ -22,11 +22,14 @@ void main(){ float c=cos(uYaw),s=sin(uYaw); vec3 q=aPosition*uScale; if(aEffect>
 const FRAG = `#version 300 es
 precision highp float;
 in vec3 vNormal; in vec3 vColor; in vec3 vWorld; in float vEffect;
-uniform vec3 uLightDir; uniform vec3 uFogColor; uniform vec3 uCamera; uniform float uFogDensity; uniform float uTime; uniform vec3 uTint; uniform float uTintMix;
+uniform vec3 uLightDir; uniform vec3 uFogColor; uniform vec3 uCamera; uniform float uFogDensity; uniform float uTime; uniform float uSunIntensity; uniform vec3 uTint; uniform float uTintMix;
 out vec4 outColor;
 void main(){
-  vec3 n=normalize(vNormal); float diffuse=max(dot(n,normalize(uLightDir)),0.0);
-  float hemi=0.5+0.5*n.y; vec3 lit=vColor*(0.42+0.52*diffuse+0.10*hemi); lit*=mix(vec3(1.0),uTint,uTintMix);
+  vec3 n=normalize(vNormal); vec3 sunDir=normalize(uLightDir); float diffuse=max(dot(n,sunDir),0.0);
+  float hemi=0.5+0.5*n.y; float wrap=max((dot(n,sunDir)+0.22)/1.22,0.0);
+  vec3 groundAmbient=vec3(0.10,0.095,0.075); vec3 skyAmbient=mix(groundAmbient,uFogColor,0.52+0.25*hemi);
+  vec3 sunLight=vec3(1.0,0.87,0.68)*(0.10+0.78*diffuse)*uSunIntensity;
+  vec3 lit=vColor*(skyAmbient+sunLight+vec3(0.035,0.045,0.035)*wrap); lit*=mix(vec3(1.0),uTint,uTintMix);
   if(vEffect>0.5 && vEffect<1.5){ float wave=sin(vWorld.x*0.72+uTime*1.4)*0.045+cos(vWorld.z*0.55-uTime*1.1)*0.035; lit=mix(lit,vec3(0.18,0.49,0.52),0.26+wave); lit+=vec3(0.025,0.075,0.085)*(0.5+0.5*sin(vWorld.x*1.7+vWorld.z*1.1+uTime*2.0)); }
   if(vEffect>1.5){ float pulse=0.82+0.18*sin(uTime*2.2+vWorld.y); lit+=vColor*0.48*pulse; }
   float d=length(vWorld-uCamera); float fog=1.0-exp(-pow(d*uFogDensity,1.55));
@@ -35,7 +38,7 @@ void main(){
 function compile(type, src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const e=gl.getShaderInfoLog(s);throw new Error('Shader compile failed: '+e);}return s;}
 const program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,VERT));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));
 gl.useProgram(program);
-const loc={pos:gl.getAttribLocation(program,'aPosition'),normal:gl.getAttribLocation(program,'aNormal'),color:gl.getAttribLocation(program,'aColor'),effect:gl.getAttribLocation(program,'aEffect'),vp:gl.getUniformLocation(program,'uViewProj'),light:gl.getUniformLocation(program,'uLightDir'),fog:gl.getUniformLocation(program,'uFogColor'),camera:gl.getUniformLocation(program,'uCamera'),density:gl.getUniformLocation(program,'uFogDensity'),time:gl.getUniformLocation(program,'uTime'),offset:gl.getUniformLocation(program,'uOffset'),yaw:gl.getUniformLocation(program,'uYaw'),scale:gl.getUniformLocation(program,'uScale'),tint:gl.getUniformLocation(program,'uTint'),tintMix:gl.getUniformLocation(program,'uTintMix')};
+const loc={pos:gl.getAttribLocation(program,'aPosition'),normal:gl.getAttribLocation(program,'aNormal'),color:gl.getAttribLocation(program,'aColor'),effect:gl.getAttribLocation(program,'aEffect'),vp:gl.getUniformLocation(program,'uViewProj'),light:gl.getUniformLocation(program,'uLightDir'),fog:gl.getUniformLocation(program,'uFogColor'),camera:gl.getUniformLocation(program,'uCamera'),density:gl.getUniformLocation(program,'uFogDensity'),time:gl.getUniformLocation(program,'uTime'),offset:gl.getUniformLocation(program,'uOffset'),yaw:gl.getUniformLocation(program,'uYaw'),scale:gl.getUniformLocation(program,'uScale'),tint:gl.getUniformLocation(program,'uTint'),sunIntensity:gl.getUniformLocation(program,'uSunIntensity'),tintMix:gl.getUniformLocation(program,'uTintMix')};
 gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.disable(gl.CULL_FACE);
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -458,8 +461,16 @@ function updatePrompt(){const hint=$('bottomHint');if(player.insideCave){hint.te
 
 function resize(){const dpr=Math.min(window.devicePixelRatio||1,1.8),w=Math.floor(canvas.clientWidth*dpr),h=Math.floor(canvas.clientHeight*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
 function drawMeshes(meshes,seasonTint=null){gl.uniform3fv(loc.offset,[0,0,0]);gl.uniform1f(loc.yaw,0);gl.uniform1f(loc.scale,1);for(let i=0;i<meshes.length;i++){const m=meshes[i];if(seasonTint&&i===6){gl.uniform3fv(loc.tint,seasonTint.color);gl.uniform1f(loc.tintMix,seasonTint.mix);}else gl.uniform1f(loc.tintMix,0);gl.bindVertexArray(m.vao);gl.drawArrays(gl.TRIANGLES,0,m.count);}gl.uniform1f(loc.tintMix,0);gl.bindVertexArray(null);}
-function render(now){resize();const dt=Math.min((now-last)/1000,.04);last=now;elapsed+=dt;update(dt);gl.clearColor(.43,.57,.58,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
- const eye=[player.x,playerGround()+eyeHeight+(player.insideCave?0:(player.jumpY||0)),player.z];const cp=Math.cos(player.pitch),front=[Math.sin(player.yaw)*cp,Math.sin(player.pitch),-Math.cos(player.yaw)*cp];const view=lookAt(eye,[eye[0]+front[0],eye[1]+front[1],eye[2]+front[2]],[0,1,0]);const proj=perspective(Math.PI/3,canvas.width/canvas.height,.1,360);gl.useProgram(program);gl.uniformMatrix4fv(loc.vp,false,multiply(proj,view));gl.uniform3fv(loc.light,normalize([-.45,.85,.32]));gl.uniform3fv(loc.fog,player.insideCave?[.035,.055,.052]:[.47,.59,.57]);gl.uniform3fv(loc.camera,eye);gl.uniform1f(loc.density,player.insideCave?.018:.0062);gl.uniform1f(loc.time,elapsed);
+function render(now){resize();const dt=Math.min((now-last)/1000,.04);last=now;elapsed+=dt;update(dt);
+ const hour=dayHour(),daylight=smooth(5.2,8.0,hour)*(1-smooth(17.0,20.0,hour));
+ const dawn=smooth(4.7,6.3,hour)*(1-smooth(7.2,9.0,hour)),dusk=smooth(16.7,18.8,hour)*(1-smooth(19.6,21.2,hour));
+ const twilight=clamp(Math.max(dawn,dusk),0,1),night=1-smooth(4.7,7.2,hour)*(1-smooth(17.6,20.5,hour));
+ const dayFog=[.47,.59,.57],twilightFog=[.67,.48,.36],nightFog=[.065,.10,.15];
+ const fogColor=dayFog.map((v,i)=>lerp(lerp(v,twilightFog[i],twilight*.78),nightFog[i],night));
+ const sunAngle=(hour-6)/12*Math.PI,sunDir=normalize([Math.cos(sunAngle)*.55,Math.sin(sunAngle),.28]);
+ const activeFog=player.insideCave?[.035,.055,.052]:fogColor,clear=player.insideCave?[.018,.027,.028]:fogColor.map(v=>v*.94);
+ gl.clearColor(clear[0],clear[1],clear[2],1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+ const eye=[player.x,playerGround()+eyeHeight+(player.insideCave?0:(player.jumpY||0)),player.z];const cp=Math.cos(player.pitch),front=[Math.sin(player.yaw)*cp,Math.sin(player.pitch),-Math.cos(player.yaw)*cp];const view=lookAt(eye,[eye[0]+front[0],eye[1]+front[1],eye[2]+front[2]],[0,1,0]);const proj=perspective(Math.PI/3,canvas.width/canvas.height,.1,360);gl.useProgram(program);gl.uniformMatrix4fv(loc.vp,false,multiply(proj,view));gl.uniform3fv(loc.light,player.insideCave?normalize([-.45,.85,.32]):sunDir);gl.uniform3fv(loc.fog,activeFog);gl.uniform3fv(loc.camera,eye);gl.uniform1f(loc.density,player.insideCave?.018:(.0058+twilight*.0014+night*.001));gl.uniform1f(loc.time,elapsed);gl.uniform1f(loc.sunIntensity,player.insideCave?.18:(.08+.92*daylight));
  if(player.insideCave)drawMeshes(caveMeshes);else{const season=populationState.season,tints={spring:{color:[.84,1.08,.82],mix:.16},summer:{color:[1,1,1],mix:0},autumn:{color:[1.18,.76,.43],mix:.24},winter:{color:[.76,.88,.96],mix:.22}};drawMeshes(world.outside,tints[season]);if(vegetationMeshes.understory)drawMeshes([vegetationMeshes.understory]);if(vegetationMeshes.litter)drawMeshes([vegetationMeshes.litter]);if(vegetationMeshes.roots)drawMeshes([vegetationMeshes.roots]);if(vegetationMeshes.wood)drawMeshes([vegetationMeshes.wood]);if(vegetationMeshes.leaves)drawMeshes([vegetationMeshes.leaves]);if(vegetationMeshes.falling)drawMeshes([vegetationMeshes.falling]);drawAnimals();}
  requestAnimationFrame(render);}
 function update(dt){if(!started)return;stepEcology(dt);const forward=(keys.KeyW?1:0)-(keys.KeyS?1:0),side=(keys.KeyD?1:0)-(keys.KeyA?1:0);let speed=(keys.ShiftLeft||keys.ShiftRight)?10:5.2;if(player.insideCave)speed=3.2;let dx=(Math.sin(player.yaw)*forward+Math.cos(player.yaw)*side),dz=(-Math.cos(player.yaw)*forward+Math.sin(player.yaw)*side),len=Math.hypot(dx,dz);if(len>0){dx/=len;dz/=len;let nx=player.x+dx*speed*dt,nz=player.z+dz*speed*dt;if(player.insideCave){player.x=clamp(nx,-4.1,4.1);player.z=clamp(nz,-18,12);}else{nx=clamp(nx,-116,116);nz=clamp(nz,-116,116);let blocked=false;for(const c of treeColliders){if(Math.hypot(nx-c[0],nz-c[1])<c[2]+.55){blocked=true;break;}}if(!blocked){player.x=nx;player.z=nz;}}}

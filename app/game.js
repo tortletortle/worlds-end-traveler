@@ -251,6 +251,14 @@ function seasonVegetationPalette(season){
  const palettes={spring:{leaf:[.18,.39,.22],leaf2:[.25,.48,.27],grass:[.23,.43,.22],shrub:[.19,.38,.22]},summer:{leaf:[.12,.32,.17],leaf2:[.18,.40,.22],grass:[.22,.39,.18],shrub:[.15,.32,.18]},autumn:{leaf:[.66,.36,.13],leaf2:[.79,.49,.18],grass:[.48,.40,.20],shrub:[.54,.32,.16]},winter:{leaf:[.40,.34,.25],leaf2:[.48,.40,.29],grass:[.35,.38,.32],shrub:[.36,.34,.28]}};return palettes[season]||palettes.spring;
 }
 function treeVisualRandom(seed){let state=(Math.abs(Math.floor(seed*1009))+1)>>>0;return ()=>{state=(Math.imul(1664525,state)+1013904223)>>>0;return state/4294967296;};}
+function addLeafBladeFan(builder,x,y,z,size,seed,color,droop=false){
+ const rand=treeVisualRandom(seed);
+ for(let i=0;i<5;i++){const a=rand()*Math.PI*2,dx=Math.cos(a),dz=Math.sin(a),rise=droop?-.55-rand()*.5:.18+rand()*.45,len=size*(.55+rand()*.45),w=size*(.09+rand()*.035),bx=x+dx*size*.28,by=y+(droop?size*.18:0),bz=z+dz*size*.28;
+  const mx=bx+dx*len*.55,my=by+rise*len*.55,mz=bz+dz*len*.55,tx=bx+dx*len,ty=by+rise*len,tz=bz+dz*len,sx=-dz*w,sz=dx*w;
+  builder.tri([bx,by,bz],[mx+sx,my+w*.18,mz+sz],[tx,ty,tz],color,0,[0,1,0]);
+  builder.tri([bx,by,bz],[tx,ty,tz],[mx-sx,my-w*.18,mz-sz],color,0,[0,1,0]);
+ }
+}
 function addNeedleSpray(builder,x,y,z,dx,dz,size,color){
  const px=-dz,pz=dx,tip=[x+dx*size*.85,y+size*.18,z+dz*size*.85],left=[x+px*size*.48,y+size*.05,z+pz*size*.48],right=[x-px*size*.48,y+size*.05,z-pz*size*.48];
  builder.tri([x,y,z],left,tip,color,0,[0,1,0]);builder.tri([x,y,z],tip,right,color,0,[0,1,0]);
@@ -283,7 +291,7 @@ function addDynamicTree(wood,leaves,falling,t,season){
    const crownY=y+h*.78;
    for(let k=0;k<9;k++){const a=k*Math.PI*2/9+seed*.23,dx=Math.cos(a),dz=Math.sin(a),reach=(1.75+rand()*.55)*scale,drop=(.55+rand()*.55)*scale,cx=x+dx*reach,cz=z+dz*reach,cy=crownY-drop;
     wood.cylinder([x,y+h*.72,z],[cx,cy+.35*scale,cz],.095*scale,.022*scale,bark,5);
-    leaves.sphere(cx,cy,cz,.62*scale*leafFactor,1.05*scale*leafFactor,.62*scale*leafFactor,k%2?c2:c1,0,4,6);
+    leaves.sphere(cx,cy,cz,.62*scale*leafFactor,1.05*scale*leafFactor,.62*scale*leafFactor,k%2?c2:c1,0,4,6);addLeafBladeFan(leaves,cx,cy,cz,.72*scale*leafFactor,seed*37+k*11,k%2?c2:c1,true);
     leaves.sphere(x+dx*reach*.66,cy+.42*scale,z+dz*reach*.66,.42*scale*leafFactor,.68*scale*leafFactor,.42*scale*leafFactor,c2,0,4,5);
    }
   }else{
@@ -291,7 +299,7 @@ function addDynamicTree(wood,leaves,falling,t,season){
    for(let k=0;k<clusterCount;k++){const a=k*Math.PI*2/clusterCount+seed*.19,dx=Math.cos(a),dz=Math.sin(a),rad=crownRadius*(.78+rand()*.38),cx=x+dx*rad,cz=z+dz*rad,cy=crownY+(rand()-.5)*(birch?1.45:2.0)*scale;
     const branchStart=[x,y+h*(.51+rand()*.07),z],branchEnd=[cx,cy-.24*scale,cz];wood.cylinder(branchStart,branchEnd,.095*scale,.025*scale,bark,5);
     const rx=(.76+rand()*.26)*scale*leafFactor*canopyScale,ry=(.78+rand()*.32)*scale*leafFactor*canopyScale,rz=(.78+rand()*.25)*scale*leafFactor*canopyScale;
-    leaves.sphere(cx,cy,cz,rx,ry,rz,k%3===0?c2:c1,0,4,6);
+    leaves.sphere(cx,cy,cz,rx,ry,rz,k%3===0?c2:c1,0,4,6);addLeafBladeFan(leaves,cx,cy,cz,Math.min(rx,rz)*.88,seed*31+k*17,k%3===0?c2:c1,false);
    }
    const topY=crownY+(birch?.92:1.02)*scale;
    leaves.sphere(x,topY,z,.92*scale*leafFactor*canopyScale,1.05*scale*leafFactor*canopyScale,.90*scale*leafFactor*canopyScale,c2,0,4,6);

@@ -33,6 +33,7 @@ def main():
         if os.environ.get("CHROMIUM"):
             launch["executable_path"] = os.environ["CHROMIUM"]
         browser = playwright.chromium.launch(**launch)
+        browser_version = browser.version
         page = browser.new_page(viewport={"width": 1600, "height": 900}, device_scale_factor=1)
         page.on("pageerror", lambda error: page_errors.append(str(error)))
         page.goto(args.url, wait_until="load")
@@ -68,7 +69,7 @@ def main():
     software = any(token in renderer_name.lower() for token in ("swiftshader", "llvmpipe", "software rasterizer"))
     result = {
         "result": "PAGE_ERRORS" if page_errors else ("SOFTWARE_RENDERER" if software else "CAPTURED"),
-        "browser_version": browser.version,
+        "browser_version": browser_version,
         "webgl2": renderer,
         "software_renderer": software,
         "camera": {"x": args.camera_x, "z": args.camera_z, "yaw": args.yaw, "pitch": args.pitch},

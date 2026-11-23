@@ -5,7 +5,7 @@
 (() => {
 'use strict';
 const canvas = document.getElementById('gameCanvas');
-const gl = canvas.getContext('webgl2', { antialias: true, alpha: false, depth: true, powerPreference: 'high-performance' });
+const gl = canvas.getContext('webgl2', { antialias: true, alpha: true, depth: true, powerPreference: 'high-performance' });
 const $ = id => document.getElementById(id);
 if (!gl) {
   $('startScreen').innerHTML = '<div class="startCard"><h1>无法启动三维场景</h1><p>当前浏览器未提供 WebGL 2.0。请使用较新版本的 Chrome、Edge 或 Firefox，并确认浏览器硬件加速已启用。</p></div>';
@@ -367,7 +367,11 @@ function calculateLighting(hour){
  const dayFog=[.47,.59,.57],twilightFog=[.67,.48,.36],nightFog=[.065,.10,.15];
  const fogColor=dayFog.map((v,i)=>lerp(lerp(v,twilightFog[i],twilight*.78),nightFog[i],night));
  const sunAngle=(h-6)/12*Math.PI,sunDir=normalize([Math.cos(sunAngle)*.55,Math.sin(sunAngle),.28]);
- return {hour:h,daylight,twilight,night,sunDir,sunIntensity:.08+.92*daylight,fogColor,fogDensity:.0058+twilight*.0014+night*.001,clearColor:fogColor.map(v=>v*.94)};
+ const daySkyTop=[.18,.36,.50],twilightSkyTop=[.26,.25,.32],nightSkyTop=[.012,.025,.06];
+ const daySkyMid=[.38,.56,.62],twilightSkyMid=[.77,.48,.34],nightSkyMid=[.025,.05,.10];
+ const skyTop=daySkyTop.map((v,i)=>lerp(lerp(v,twilightSkyTop[i],twilight*.78),nightSkyTop[i],night));
+ const skyMid=daySkyMid.map((v,i)=>lerp(lerp(v,twilightSkyMid[i],twilight*.78),nightSkyMid[i],night));
+ return {hour:h,daylight,twilight,night,sunDir,sunIntensity:.08+.92*daylight,fogColor,fogDensity:.0058+twilight*.0014+night*.001,skyTop,skyMid};
 }
 function nearestNode(a,nodes,filter=()=>true){let best=null,score=1e9;for(const n of nodes){if(!filter(n))continue;const d=Math.hypot(a.x-n.x,a.z-n.z);const v=d+(n.stock!==undefined?(1-n.stock)*18:0);if(v<score){score=v;best=n;}}return best;}
 function nearestHabitat(a){let best=habitats.find(h=>h.species.includes(a.species)),bd=1e9;for(const h of habitats){if(!h.species.includes(a.species))continue;const d=Math.hypot(a.x-h.x,a.z-h.z);if(d<bd){best=h;bd=d;}}return best;}
@@ -478,10 +482,15 @@ function updatePrompt(){const hint=$('bottomHint');if(player.insideCave){hint.te
 
 function resize(){const dpr=Math.min(window.devicePixelRatio||1,1.8),w=Math.floor(canvas.clientWidth*dpr),h=Math.floor(canvas.clientHeight*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
 function drawMeshes(meshes,seasonTint=null){gl.uniform3fv(loc.offset,[0,0,0]);gl.uniform1f(loc.yaw,0);gl.uniform1f(loc.scale,1);for(let i=0;i<meshes.length;i++){const m=meshes[i];if(seasonTint&&i===6){gl.uniform3fv(loc.tint,seasonTint.color);gl.uniform1f(loc.tintMix,seasonTint.mix);}else gl.uniform1f(loc.tintMix,0);gl.bindVertexArray(m.vao);gl.drawArrays(gl.TRIANGLES,0,m.count);}gl.uniform1f(loc.tintMix,0);gl.bindVertexArray(null);}
+let lastSkyGradient='';
 function render(now){resize();const dt=Math.min((now-last)/1000,.04);last=now;elapsed+=dt;update(dt);
  const lighting=calculateLighting(dayHour());
- const activeFog=player.insideCave?[.035,.055,.052]:lighting.fogColor,clear=player.insideCave?[.018,.027,.028]:lighting.clearColor;
- gl.clearColor(clear[0],clear[1],clear[2],1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+ const activeFog=player.insideCave?[.035,.055,.052]:lighting.fogColor;
+ const skyTop=player.insideCave?[.018,.028,.035]:lighting.skyTop,skyMid=player.insideCave?[.035,.052,.055]:lighting.skyMid,skyHorizon=player.insideCave?[.055,.075,.072]:lighting.fogColor;
+ const cssColor=v=>'rgb('+v.map(c=>Math.round(clamp(c,0,1)*255)).join(',')+')';
+ const gradient='linear-gradient(180deg,'+cssColor(skyTop)+' 0%,'+cssColor(skyMid)+' 58%,'+cssColor(skyHorizon)+' 100%)';
+ if(gradient!==lastSkyGradient){canvas.style.background=gradient;lastSkyGradient=gradient;}
+ gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
  const eye=[player.x,playerGround()+eyeHeight+(player.insideCave?0:(player.jumpY||0)),player.z];const cp=Math.cos(player.pitch),front=[Math.sin(player.yaw)*cp,Math.sin(player.pitch),-Math.cos(player.yaw)*cp];const view=lookAt(eye,[eye[0]+front[0],eye[1]+front[1],eye[2]+front[2]],[0,1,0]);const proj=perspective(Math.PI/3,canvas.width/canvas.height,.1,360);gl.useProgram(program);gl.uniformMatrix4fv(loc.vp,false,multiply(proj,view));gl.uniform3fv(loc.light,player.insideCave?normalize([-.45,.85,.32]):lighting.sunDir);gl.uniform3fv(loc.fog,activeFog);gl.uniform3fv(loc.camera,eye);gl.uniform1f(loc.density,player.insideCave?.018:lighting.fogDensity);gl.uniform1f(loc.time,elapsed);gl.uniform1f(loc.sunIntensity,player.insideCave?.18:lighting.sunIntensity);
  if(player.insideCave)drawMeshes(caveMeshes);else{const season=populationState.season,tints={spring:{color:[.84,1.08,.82],mix:.16},summer:{color:[1,1,1],mix:0},autumn:{color:[1.18,.76,.43],mix:.24},winter:{color:[.76,.88,.96],mix:.22}};drawMeshes(world.outside,tints[season]);if(vegetationMeshes.understory)drawMeshes([vegetationMeshes.understory]);if(vegetationMeshes.litter)drawMeshes([vegetationMeshes.litter]);if(vegetationMeshes.roots)drawMeshes([vegetationMeshes.roots]);if(vegetationMeshes.wood)drawMeshes([vegetationMeshes.wood]);if(vegetationMeshes.leaves)drawMeshes([vegetationMeshes.leaves]);if(vegetationMeshes.falling)drawMeshes([vegetationMeshes.falling]);drawAnimals();}
  requestAnimationFrame(render);}

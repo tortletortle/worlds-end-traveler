@@ -37,7 +37,6 @@ def main():
         page = browser.new_page(viewport={"width": 1600, "height": 900}, device_scale_factor=1)
         page.on("pageerror", lambda error: page_errors.append(str(error)))
         page.goto(args.url, wait_until="load")
-        page.wait_for_function("window.__gameDebug && window.__gameDebug.getState", timeout=30000)
         renderer = page.evaluate("""() => {
             const canvas = document.getElementById("gameCanvas");
             const gl = canvas && canvas.getContext("webgl2");
@@ -52,6 +51,7 @@ def main():
         if renderer is None:
             browser.close()
             raise RuntimeError("WebGL2 is unavailable. Enable browser GPU acceleration and retry.")
+        page.wait_for_function("window.__gameDebug && window.__gameDebug.getState", timeout=30000)
         page.evaluate("window.__gameDebug.start()")
         page.evaluate("""p => window.__gameDebug.setCamera(p.x, p.z, p.yaw, p.pitch)""", {
             "x": args.camera_x, "z": args.camera_z, "yaw": args.yaw, "pitch": args.pitch,

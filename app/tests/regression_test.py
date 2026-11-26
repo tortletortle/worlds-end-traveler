@@ -54,7 +54,7 @@ with sync_playwright() as p:
     page.keyboard.down('KeyW');page.wait_for_timeout(420);page.keyboard.up('KeyW')
     z1=page.evaluate('window.__gameDebug.getState().z')
     assert z1<z0,{'before':z0,'after':z1}
-    page.evaluate('window.__gameDebug.setPosition(-82,76)')
+    page.evaluate('window.__gameDebug.setPosition(-72,83)')
     page.evaluate('window.__gameDebug.interact()')
     assert 'village' in page.evaluate('window.__gameDebug.getState().discovered')
     page.evaluate('window.__gameDebug.setPosition(42,23)')

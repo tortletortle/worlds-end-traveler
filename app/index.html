@@ -47,6 +47,14 @@
 .journalEntry h4{margin:5px 0 6px;font-size:13px;color:#edf0df}
 .journalEntry p{margin:0;font-size:11px;line-height:1.75;color:#c2d0c2}
 .journalEmpty{padding:18px 12px;border:1px dashed rgba(218,239,220,.18);border-radius:8px;font-size:11px;line-height:1.8;color:#b8c7b8}
+#demoEnding{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(3,10,10,.58);backdrop-filter:blur(7px)}
+#demoEnding.show{display:flex}
+#demoEnding .endingCard{width:min(480px,100%);padding:30px 32px;border:1px solid rgba(231,201,138,.35);border-radius:14px;background:linear-gradient(155deg,rgba(24,42,35,.97),rgba(9,19,19,.97));box-shadow:0 24px 80px rgba(0,0,0,.42);text-align:center}
+#demoEnding .endingKicker{font-size:9px;letter-spacing:.24em;color:#c7ad7b}
+#demoEnding h2{margin:12px 0 10px;font-size:25px;font-weight:600;color:#f0e5ca}
+#demoEnding p{margin:0 0 22px;font-size:12px;line-height:1.9;color:#c5d1c4}
+#continueJourney{padding:10px 22px;border:1px solid rgba(231,201,138,.55);border-radius:7px;background:rgba(190,157,96,.16);color:#f0e5ca;cursor:pointer}
+
 @media(max-width:650px){#journeyObjective{left:10px;bottom:14px;width:min(290px,calc(100vw - 20px));padding:10px 12px}#journalPanel{right:10px;top:66px;width:min(330px,calc(100vw - 20px));max-height:68vh}#rightbar{gap:5px}#rightbar .iconbtn{padding:8px 9px;font-size:10px}}
 @media(max-width:650px){#ecologyPanel,#mapPanel{right:10px;top:66px;width:min(330px,calc(100vw - 20px))}#topbar{left:10px;top:10px}#location{min-width:160px;padding:8px 10px}#rightbar{right:10px;top:10px}#help{display:none}.startCard{padding:26px 22px}.iconbtn{padding:8px 10px}}
 </style>
@@ -59,6 +67,7 @@
 <div id="mapPanel" class="panel"><h3>雾隐树海 · 探索地图</h3><canvas id="mapCanvas" width="560" height="420"></canvas><div id="mapLegend">● 已知地标　○ 未发现地点　蓝线：河流　浅褐线：古道<br>彩色小点：动物位置（鹿 / 狐 / 兔 / 鸟）</div></div>
 <div id="ecologyPanel" class="panel"><h3>雾隐树海 · 生态观察</h3><div id="ecoClock" class="ecoClock">阿尔维拉时间 · 清晨</div><div id="ecoSummary"></div><div class="ecoDivider"></div><h4>种群与年龄结构</h4><div id="ecoPopulation"></div><div class="ecoDivider"></div><h4>季节与植被演替</h4><div id="ecoSuccession"></div><div class="ecoDivider"></div><h4>三维植被生态</h4><div id="ecoVegetation"></div><div class="ecoDivider"></div><h4>森林群落与根系竞争</h4><div id="ecoForest"></div><div class="ecoDivider"></div><h4>自然扰动实验</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 10px"><button class="iconbtn" id="forestFire">模拟火灾</button><button class="iconbtn" id="forestWind">模拟风倒</button><button class="iconbtn" id="forestFlood">模拟洪水</button><button class="iconbtn" id="forestPest">模拟虫害</button></div><div class="ecoFoot">扰动作用于旅行者当前位置附近的林地。它们会改变树木健康、林下植被、枯落物与后续更新。</div><div class="ecoDivider"></div><h4>生态时间实验</h4><div style="display:flex;gap:7px;margin:7px 0 10px"><button class="iconbtn" id="advance30">推进 30 天</button><button class="iconbtn" id="advance120">推进 120 天</button></div><div class="ecoFoot">用于观察树木生长、幼苗更新、枯木倒伏和季节演替。快速推进按当前动物位置进行每日植被采样；真实迁徙轨迹请在正常游戏时间中观察。</div><div class="ecoDivider"></div><h4>最近的自然事件</h4><div id="ecoEventList" class="ecoEventList"><div class="ecoEmpty">暂时没有新的生态事件。沿着林间小径安静观察。</div></div><div class="ecoFoot">动物会繁殖、成长、竞争与死亡；食物资源随季节变化，栖息地会发生植被演替。靠近动物按 E 观察。</div></div>
 <div id="journeyObjective" class="panel"><div class="journeyEyebrow">当前旅程 · THE LOST ROAD</div><strong id="journeyPlace">林息村</strong><span id="journeyText">检查林息村的旧路标</span><div class="journeyTrack"><i id="journeyProgress"></i></div></div>
+<div id="demoEnding"><div class="endingCard"><div class="endingKicker">THE LOST ROAD · DEMO CHAPTER I</div><h2>古道仍在延伸</h2><p>你找到了被森林掩埋的道路，也发现它并未真正消失。<br>石阶通往更深处，而这片世界还有许多地方等待你亲自抵达。</p><button id="continueJourney">继续自由旅行</button></div></div>
 <div id="journalPanel" class="panel"><h3>旅行手记</h3><div class="journalSub">FIELD NOTES · 雾隐树海</div><div><span id="journalStatus">线索 0 / 6</span><span id="journalCount">0 / 6 条记录</span></div><div id="journalEntries"></div></div>
 <div id="crosshair"></div><div id="bottomHint"></div><div id="toast"></div>
 <div id="help">W A S D 移动　·　鼠标转向　·　Shift 奔跑　·　Space 跳跃<br>E 观察 / 交互　·　M 地图　·　I 生态记录　·　Esc 释放鼠标</div>

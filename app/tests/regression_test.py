@@ -19,9 +19,10 @@ html=(ROOT/'index.html').read_text(encoding='utf-8')
 model=(ROOT/'population_ecology.js').read_text(encoding='utf-8')
 vegetation=(ROOT/'vegetation_ecology.js').read_text(encoding='utf-8')
 forest=(ROOT/'forest_community.js').read_text(encoding='utf-8')
+story=(ROOT/'demo_story.js').read_text(encoding='utf-8')
 game=(ROOT/'game.js').read_text(encoding='utf-8')
 assert 'uniform float uTime;' in game.split('const FRAG',1)[0], 'vertex shader must declare uTime used by animated leaves'
-html=html.replace('<script src="population_ecology.js"></script>\n<script src="vegetation_ecology.js"></script>\n<script src="forest_community.js"></script>\n<script src="game.js"></script>',SHIM+'<script>'+model+'</script><script>'+vegetation+'</script><script>'+forest+'</script><script>'+game+'</script>')
+html=html.replace('<script src="population_ecology.js"></script>\n<script src="vegetation_ecology.js"></script>\n<script src="forest_community.js"></script>\n<script src="demo_story.js"></script>\n<script src="game.js"></script>',SHIM+'<script>'+model+'</script><script>'+vegetation+'</script><script>'+forest+'</script><script>'+story+'</script><script>'+game+'</script>')
 errors=[]
 with sync_playwright() as p:
     launch={'headless':True,'args':['--no-sandbox','--disable-dev-shm-usage']}
@@ -30,8 +31,11 @@ with sync_playwright() as p:
     page=browser.new_page(viewport={'width':1440,'height':900})
     page.on('pageerror',lambda e:errors.append(str(e)))
     page.set_content(html,wait_until='load')
-    page.wait_for_function("window.__gameDebug && window.__gameDebug.getState().version==='0.5.0'",timeout=30000)
+    page.wait_for_function("window.__gameDebug && window.__gameDebug.getState().version==='0.7.0-demo'",timeout=30000)
     state=page.evaluate('window.__gameDebug.getState()')
+    assert page.locator('#journeyObjective').count()==1
+    assert page.locator('#journalButton').count()==1
+    assert page.evaluate('window.__gameDebug.storyState().currentId')=='village'
     assert state['meshBatches']>=8 and state['caveBatches']>=3,state
     assert state['terrainVertices']>10000,state
     assert len(page.evaluate('window.__gameDebug.landmarks'))>=8
@@ -50,7 +54,7 @@ with sync_playwright() as p:
     page.keyboard.down('KeyW');page.wait_for_timeout(420);page.keyboard.up('KeyW')
     z1=page.evaluate('window.__gameDebug.getState().z')
     assert z1<z0,{'before':z0,'after':z1}
-    page.evaluate('window.__gameDebug.setPosition(-82,76)')
+    page.evaluate('window.__gameDebug.setPosition(-72,83)')
     page.evaluate('window.__gameDebug.interact()')
     assert 'village' in page.evaluate('window.__gameDebug.getState().discovered')
     page.evaluate('window.__gameDebug.setPosition(42,23)')

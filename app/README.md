@@ -197,3 +197,57 @@ py tests/visual_capture.py
 - 采集脚本同时记录 WebGL alpha 属性与 canvas 背景渐变字符串。
 
 **限制：** 当前是程序化二维天空渐变，不是三维天空穹顶或大气散射；透明合成、浏览器截图与实际 GPU 性能仍待本机验证。
+
+
+---
+
+## V0.7 可玩叙事 Demo：《消失的古道》
+
+当前开发分支：`feature/demo-lost-road`
+
+### 本机运行
+
+无需构建步骤，也不依赖外部 CDN。
+
+```powershell
+cd app
+py -m http.server 8000
+```
+
+浏览器打开：
+
+`http://127.0.0.1:8000/`
+
+### Demo 操作
+
+- WASD：移动
+- 鼠标：观察方向
+- Shift：奔跑
+- Space：跳跃
+- E：观察 / 调查地点
+- M：探索地图
+- J：打开旅行手记
+- I：生态观察面板
+
+### 第一章路线
+
+林息村 → 雾桥古道 → 低语林庭 → 树海断城 → 千冠母树 → 根脉洞穴。
+
+当前目标显示在左下角；地图使用金色光环标记当前线索。提前抵达后续地点不会跳过剧情，需要先发现前置线索，再返回调查。
+
+抵达根脉洞穴并完成最后一条记录后，第一章结束界面出现。关闭后仍可继续自由探索。
+
+### 自动化测试
+
+```powershell
+node tests/demo_story_test.js
+python -m pip install playwright
+python -m playwright install chromium
+python tests/regression_test.py
+```
+
+叙事单元测试验证线索顺序、提前发现、手记更新和章节结束。浏览器回归使用 WebGL2 测试替身，不等于真实 GPU 画面验收。
+
+### 当前边界
+
+这是第一段可玩叙事纵切片。线索目前通过地点交互与文字反馈呈现，尚未制作独立的可见调查物件、调查动画、空间音频或跨会话存档。Demo 体验时长需要真实试玩测量。

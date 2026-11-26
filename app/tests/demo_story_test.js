@@ -33,7 +33,7 @@ assert.equal(story.getState().currentId, 'village');
 // Out-of-order discovery is remembered but cannot spoil or skip the story.
 assert.equal(story.visit('bridge').type, 'unresolved');
 assert.equal(story.getState().chapter, 0);
-assert.deepEqual(story.getState().earlyVisits, ['bridge']);
+assert.deepEqual(Array.from(story.getState().earlyVisits), ['bridge']);
 
 const expected = ['village', 'bridge', 'grove', 'ruins', 'mother', 'cave'];
 for (let i = 0; i < expected.length; i++) {

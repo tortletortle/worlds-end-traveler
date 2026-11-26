@@ -146,7 +146,7 @@ function buildWorld(){const terrain=new Builder(),path=new Builder(),water=new B
 }
 
 const landmarks=[
- {id:'village',name:'林息村',x:-82,z:76,range:10,desc:'森林边缘的小村庄。木屋之间晾晒着药草，村民把通往树海深处的石路称为雾桥古道。'},
+ {id:'village',name:'林息村旧路标',x:-72,z:83,range:9,desc:'森林边缘的小村庄。木屋之间晾晒着药草，村民把通往树海深处的石路称为雾桥古道。'},
  {id:'bridge',name:'雾桥古道',x:-45,z:-59,range:9,desc:'古老石桥横跨白冠河的一条支流。桥面磨损严重，石栏上留着不属于现今文字的刻痕。'},
  {id:'waterfall',name:'白冠瀑布',x:-18,z:7,range:12,desc:'河流在这里跌落断层。瀑布背后的岩壁似乎存在一条天然裂隙，水声掩盖了洞内的回响。'},
  {id:'shallows',name:'鹿踪浅滩',x:8,z:48,range:10,desc:'河床在这里变浅，石块间留下了成串的蹄印。清晨常有鹿群来饮水。'},
@@ -466,24 +466,15 @@ function nearLandmark(){if(player.insideCave)return null;let best=null,bd=1e9;fo
 function setToast(title,text){const el=$('toast');el.innerHTML='<strong>'+title+'</strong>'+text;el.classList.add('show');toastTimer=4.5;}
 function updateLocation(){if(player.insideCave){$('locationName').textContent='根脉洞穴';$('locationSub').textContent='雾隐树海地下 · 晶脉深处';return;}let p=nearLandmark();let name='雾隐树海';if(Math.hypot(player.x+82,player.z-76)<22)name='林息村外围';else if(player.z<-45&&player.x<-30)name='树海断城一带';else if(player.z<-48&&player.x>-15&&player.x<20)name='低语林庭一带';else if(player.z<-25&&player.x>35)name='千冠母树一带';else if(player.z>0&&player.z<35&&player.x>25)name='东侧山坡';else if(player.z>35&&player.z<70)name='鹿踪浅滩一带';else if(player.z<20&&player.z>-20)name='白冠瀑布上游';$('locationName').textContent=p?p.name:name;$('locationSub').textContent='雾隐树海 · '+(discovered.size)+' / '+landmarks.length+' 处地标已记录';}
 function showDemoEnding(){const modal=$('demoEnding');if(modal)modal.classList.add('show');}
+function enterCaveWithStory(storyEvent){discovered.add('cave');player.returnPos={x:player.x,z:player.z,yaw:player.yaw};player.insideCave=true;player.x=0;player.z=0;player.yaw=0;player.pitch=0;if(storyEvent?.type==='complete'){setToast('第一段旅程完成','你找到了古道的延续。更深处仍有尚未抵达的地方。');showDemoEnding();}else if(storyEvent?.type==='unresolved')setToast('尚未解开的线索',storyEvent.text);else setToast('进入根脉洞穴','洞内的空气潮湿而寒冷。按 E 靠近入口可以返回地表。');}
 function interact(){if(player.insideCave){if(player.z>7){player.insideCave=false;player.x=42;player.z=31;player.yaw=Math.PI;setToast('离开根脉洞穴','你重新回到雾隐树海的山坡。');}else setToast('晶脉深处','青色晶体在岩壁中微微发亮，洞穴深处仍有未探索的岔道。');return;}
+ const p=nearLandmark(),storyState=demoStory.getState();
+ // The current story lead takes priority over nearby wildlife so the main clue cannot be accidentally blocked.
+ if(p&&p.id===storyState.currentId){if(p.id==='cave'){const result=demoStory.visit('cave');demoStory.render();enterCaveWithStory(result);return;}const first=!discovered.has(p.id);discovered.add(p.id);const result=demoStory.visit(p.id);demoStory.render();if(result?.type==='clue')setToast('手记更新 · '+result.title,result.text);else if(result?.type==='unresolved')setToast('尚未解开的线索',result.text);else if(first)setToast('发现新地点 · '+p.name,p.desc);else setToast(p.name,p.desc);updateLocation();drawMap();return;}
  const animal=nearAnimal();if(animal){observeAnimal(animal);return;}
- const p=nearLandmark();if(!p){setToast('静静观察','这里暂时没有明显的地标。试着靠近瀑布、古树或石柱，留意环境中的细节。');return;}
- if(p.id==='cave'){
-  const storyEvent=demoStory.visit('cave');demoStory.render();
-  discovered.add('cave');player.returnPos={x:player.x,z:player.z,yaw:player.yaw};player.insideCave=true;player.x=0;player.z=0;player.yaw=0;player.pitch=0;
-  if(storyEvent?.type==='complete'){setToast('第一段旅程完成','你找到了古道的延续。更深处仍有尚未抵达的地方。');showDemoEnding();}
-  else if(storyEvent?.type==='unresolved')setToast('尚未解开的线索',storyEvent.text);
-  else setToast('进入根脉洞穴','洞内的空气潮湿而寒冷。按 E 靠近入口可以返回地表。');
-  return;
- }
- const firstDiscovery=!discovered.has(p.id);discovered.add(p.id);
- const storyEvent=demoStory.visit(p.id);demoStory.render();
- if(storyEvent?.type==='clue')setToast('手记更新 · '+storyEvent.title,storyEvent.text);
- else if(storyEvent?.type==='unresolved')setToast('尚未解开的线索',storyEvent.text);
- else if(firstDiscovery)setToast('发现新地点 · '+p.name,p.desc);
- else setToast(p.name,p.desc);
- updateLocation();drawMap();}
+ if(!p){setToast('静静观察','这里暂时没有明显的地标。试着靠近瀑布、古树或石柱，留意环境中的细节。');return;}
+ if(p.id==='cave'){const result=demoStory.visit('cave');demoStory.render();enterCaveWithStory(result);return;}
+ const first=!discovered.has(p.id);discovered.add(p.id);const result=demoStory.visit(p.id);demoStory.render();if(result?.type==='unresolved')setToast('尚未解开的线索',result.text);else if(first)setToast('发现新地点 · '+p.name,p.desc);else setToast(p.name,p.desc);updateLocation();drawMap();}
 function toggleMap(){showMap=!showMap;$('mapPanel').classList.toggle('show',showMap);if(showMap){$('ecologyPanel').classList.remove('show');$('journalPanel').classList.remove('show');drawMap();}}
 function toggleJournal(){const panel=$('journalPanel');const open=!panel.classList.contains('show');panel.classList.toggle('show',open);if(open){showMap=false;$('mapPanel').classList.remove('show');$('ecologyPanel').classList.remove('show');demoStory.render();}}
 function drawMap(){const c=$('mapCanvas'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#172a25';ctx.fillRect(0,0,w,h);const X=x=>(x+120)/240*w,Z=z=>(z+120)/240*h;

@@ -19,9 +19,10 @@ html=(ROOT/'index.html').read_text(encoding='utf-8')
 model=(ROOT/'population_ecology.js').read_text(encoding='utf-8')
 vegetation=(ROOT/'vegetation_ecology.js').read_text(encoding='utf-8')
 forest=(ROOT/'forest_community.js').read_text(encoding='utf-8')
+story=(ROOT/'demo_story.js').read_text(encoding='utf-8')
 game=(ROOT/'game.js').read_text(encoding='utf-8')
 assert 'uniform float uTime;' in game.split('const FRAG',1)[0], 'vertex shader must declare uTime used by animated leaves'
-html=html.replace('<script src="population_ecology.js"></script>\n<script src="vegetation_ecology.js"></script>\n<script src="forest_community.js"></script>\n<script src="game.js"></script>',SHIM+'<script>'+model+'</script><script>'+vegetation+'</script><script>'+forest+'</script><script>'+game+'</script>')
+html=html.replace('<script src="population_ecology.js"></script>\n<script src="vegetation_ecology.js"></script>\n<script src="forest_community.js"></script>\n<script src="demo_story.js"></script>\n<script src="game.js"></script>',SHIM+'<script>'+model+'</script><script>'+vegetation+'</script><script>'+forest+'</script><script>'+story+'</script><script>'+game+'</script>')
 errors=[]
 with sync_playwright() as p:
     launch={'headless':True,'args':['--no-sandbox','--disable-dev-shm-usage']}

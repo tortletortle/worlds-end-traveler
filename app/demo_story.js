@@ -57,6 +57,7 @@
         total: chapters.length,
         completed,
         currentPlace: completed ? '旅程暂告一段落' : current.place,
+        currentId: completed ? null : current.id,
         objective: completed ? '带着新的发现，继续自己的旅行' : current.objective,
         notes: notes.map((note, index) => ({ ...note, number: index + 1 })),
         earlyVisits: [...earlyVisits]

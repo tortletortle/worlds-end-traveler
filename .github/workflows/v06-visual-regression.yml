@@ -22,16 +22,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install Playwright
-        run: python -m pip install playwright
-      - name: Install Chromium
-        run: python -m playwright install --with-deps chromium
       - name: Run narrative unit tests
         working-directory: app
         run: node tests/demo_story_test.js
       - name: Check Python test harness syntax
         working-directory: app
         run: python -m py_compile tests/regression_test.py tests/visual_capture.py
+      - name: Install Playwright
+        run: python -m pip install playwright
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
       - name: Run browser and ecology regressions
         working-directory: app
         run: python tests/regression_test.py

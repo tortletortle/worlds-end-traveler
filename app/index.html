@@ -28,6 +28,26 @@
 #ecologyPanel{position:fixed;right:20px;top:76px;width:330px;max-height:min(70vh,620px);overflow:auto;padding:15px;z-index:7;display:none}#ecologyPanel.show{display:block}#ecologyPanel h3{margin:0 0 7px;font-size:14px;font-weight:600}#ecologyPanel h4{margin:10px 0 7px;font-size:12px;color:#d9e4d7}#ecoClock{font-size:11px;color:#d6c69d;margin-bottom:10px}.ecoCounts{display:grid;grid-template-columns:1fr 1fr;gap:7px}.ecoCounts span{padding:8px 9px;border-radius:8px;background:rgba(210,225,207,.07);font-size:11px;color:#d0dbd0}.ecoCounts b{float:right;color:#e7d19d;font-size:13px}.ecoDivider{height:1px;background:var(--line);margin:11px 0}.ecoEventList{display:grid;gap:7px}.ecoEvent{padding:8px 9px;border-left:2px solid rgba(212,190,137,.7);background:rgba(210,225,207,.055);border-radius:0 7px 7px 0}.ecoEvent b{display:block;font-size:11px;color:#e5d3a8;margin-bottom:3px}.ecoEvent small{display:block;font-size:10px;line-height:1.5;color:#c3d0c4}.ecoEmpty,.ecoFoot,#ecoSummary p{font-size:10px;line-height:1.65;color:#aebfb1}.ecoFoot{margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}#ecoSummary p{margin:8px 0 0}#rightbar{display:flex;gap:7px}#rightbar .iconbtn{padding:10px 11px}
 
 .ecoAgeRow{padding:6px 8px;margin:5px 0;background:rgba(210,225,207,.055);border-radius:7px}.ecoAgeRow b{display:block;font-size:10px;color:#e5d3a8;margin-bottom:3px}.ecoAgeRow span{font-size:9px;line-height:1.5;color:#c3d0c4}.ecoStatLine{font-size:10px;line-height:1.7;color:#d4dfd3;padding:8px 9px;margin-top:7px;border:1px solid rgba(218,239,220,.12);border-radius:7px}.ecoHabitatRow{display:grid;grid-template-columns:82px 62px 1fr;gap:6px;align-items:center;margin:6px 0;font-size:9px;color:#c7d4c7}.ecoHabitatRow b{font-weight:500;color:#e1d0a5}.ecoHabitatRow i{height:5px;background:rgba(220,235,218,.12);border-radius:6px;overflow:hidden}.ecoHabitatRow em{display:block;height:100%;background:linear-gradient(90deg,#6c9972,#c3bb79);border-radius:6px}
+
+#journeyObjective{position:fixed;left:20px;bottom:24px;z-index:4;width:min(330px,calc(100vw - 40px));padding:13px 15px 12px;border:1px solid rgba(231,201,138,.28);border-radius:11px;background:rgba(9,20,19,.78);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.22);pointer-events:none}
+#journeyObjective .journeyEyebrow{font-size:9px;letter-spacing:.18em;color:#c7ad7b}
+#journeyPlace{display:block;margin-top:5px;font-size:14px;font-weight:650;color:#f0e5ca}
+#journeyText{display:block;margin-top:4px;font-size:11px;line-height:1.55;color:#c7d4c7}
+#journeyObjective .journeyTrack{height:3px;margin-top:10px;border-radius:4px;background:rgba(230,236,218,.12);overflow:hidden}
+#journeyProgress{display:block;width:0;height:100%;background:linear-gradient(90deg,#8cae86,#e3c78e);transition:width .35s ease}
+#journeyObjective.complete{border-color:rgba(156,190,145,.45)}
+#journalPanel{position:fixed;right:20px;top:76px;z-index:7;width:min(360px,calc(100vw - 40px));max-height:min(72vh,680px);overflow:auto;padding:18px 18px 16px;display:none}
+#journalPanel.show{display:block}
+#journalPanel h3{margin:0 0 4px;font-size:16px;color:#f0e5ca}
+#journalPanel .journalSub{font-size:10px;color:#aebfae;letter-spacing:.08em;margin-bottom:14px}
+#journalStatus{font-size:11px;color:#dfc48d;margin-bottom:5px}
+#journalCount{font-size:10px;color:#aebfae;float:right}
+.journalEntry{padding:12px 0;border-top:1px solid rgba(218,239,220,.12)}
+.journalEntry small{font-size:9px;letter-spacing:.08em;color:#c5ad7b}
+.journalEntry h4{margin:5px 0 6px;font-size:13px;color:#edf0df}
+.journalEntry p{margin:0;font-size:11px;line-height:1.75;color:#c2d0c2}
+.journalEmpty{padding:18px 12px;border:1px dashed rgba(218,239,220,.18);border-radius:8px;font-size:11px;line-height:1.8;color:#b8c7b8}
+@media(max-width:650px){#journeyObjective{left:10px;bottom:14px;width:min(290px,calc(100vw - 20px));padding:10px 12px}#journalPanel{right:10px;top:66px;width:min(330px,calc(100vw - 20px));max-height:68vh}#rightbar{gap:5px}#rightbar .iconbtn{padding:8px 9px;font-size:10px}}
 @media(max-width:650px){#ecologyPanel,#mapPanel{right:10px;top:66px;width:min(330px,calc(100vw - 20px))}#topbar{left:10px;top:10px}#location{min-width:160px;padding:8px 10px}#rightbar{right:10px;top:10px}#help{display:none}.startCard{padding:26px 22px}.iconbtn{padding:8px 10px}}
 </style>
 </head>
@@ -35,16 +55,19 @@
 <canvas id="gameCanvas" aria-label="雾隐树海三维探索场景"></canvas>
 <div id="vignette"></div>
 <div id="topbar"><div id="location" class="panel"><div class="eyebrow">ALVIRA · FIELD JOURNAL</div><strong id="locationName">林息村外围</strong><small id="locationSub">雾隐树海 · 清晨薄雾</small></div><div id="compass" class="panel">✧</div></div>
-<div id="rightbar"><button class="iconbtn" id="mapButton">地图 M</button><button class="iconbtn" id="ecologyButton">生态 I</button><button class="iconbtn" id="helpButton">操作说明</button></div>
+<div id="rightbar"><button class="iconbtn" id="mapButton">地图 M</button><button class="iconbtn" id="journalButton">手记 J</button><button class="iconbtn" id="ecologyButton">生态 I</button><button class="iconbtn" id="helpButton">操作说明</button></div>
 <div id="mapPanel" class="panel"><h3>雾隐树海 · 探索地图</h3><canvas id="mapCanvas" width="560" height="420"></canvas><div id="mapLegend">● 已知地标　○ 未发现地点　蓝线：河流　浅褐线：古道<br>彩色小点：动物位置（鹿 / 狐 / 兔 / 鸟）</div></div>
 <div id="ecologyPanel" class="panel"><h3>雾隐树海 · 生态观察</h3><div id="ecoClock" class="ecoClock">阿尔维拉时间 · 清晨</div><div id="ecoSummary"></div><div class="ecoDivider"></div><h4>种群与年龄结构</h4><div id="ecoPopulation"></div><div class="ecoDivider"></div><h4>季节与植被演替</h4><div id="ecoSuccession"></div><div class="ecoDivider"></div><h4>三维植被生态</h4><div id="ecoVegetation"></div><div class="ecoDivider"></div><h4>森林群落与根系竞争</h4><div id="ecoForest"></div><div class="ecoDivider"></div><h4>自然扰动实验</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 10px"><button class="iconbtn" id="forestFire">模拟火灾</button><button class="iconbtn" id="forestWind">模拟风倒</button><button class="iconbtn" id="forestFlood">模拟洪水</button><button class="iconbtn" id="forestPest">模拟虫害</button></div><div class="ecoFoot">扰动作用于旅行者当前位置附近的林地。它们会改变树木健康、林下植被、枯落物与后续更新。</div><div class="ecoDivider"></div><h4>生态时间实验</h4><div style="display:flex;gap:7px;margin:7px 0 10px"><button class="iconbtn" id="advance30">推进 30 天</button><button class="iconbtn" id="advance120">推进 120 天</button></div><div class="ecoFoot">用于观察树木生长、幼苗更新、枯木倒伏和季节演替。快速推进按当前动物位置进行每日植被采样；真实迁徙轨迹请在正常游戏时间中观察。</div><div class="ecoDivider"></div><h4>最近的自然事件</h4><div id="ecoEventList" class="ecoEventList"><div class="ecoEmpty">暂时没有新的生态事件。沿着林间小径安静观察。</div></div><div class="ecoFoot">动物会繁殖、成长、竞争与死亡；食物资源随季节变化，栖息地会发生植被演替。靠近动物按 E 观察。</div></div>
+<div id="journeyObjective" class="panel"><div class="journeyEyebrow">当前旅程 · THE LOST ROAD</div><strong id="journeyPlace">林息村</strong><span id="journeyText">检查林息村的旧路标</span><div class="journeyTrack"><i id="journeyProgress"></i></div></div>
+<div id="journalPanel" class="panel"><h3>旅行手记</h3><div class="journalSub">FIELD NOTES · 雾隐树海</div><div><span id="journalStatus">线索 0 / 6</span><span id="journalCount">0 / 6 条记录</span></div><div id="journalEntries"></div></div>
 <div id="crosshair"></div><div id="bottomHint"></div><div id="toast"></div>
 <div id="help">W A S D 移动　·　鼠标转向　·　Shift 奔跑　·　Space 跳跃<br>E 观察 / 交互　·　M 地图　·　I 生态记录　·　Esc 释放鼠标</div>
-<div id="status">V0.6 VISUAL EXPERIMENT · FOREST ASSET PASS</div>
-<div id="startScreen"><div class="startCard"><div class="kicker">A WORLD STILL GROWING</div><h1>世界尽头的旅行者</h1><div class="subtitle">THE WANDERER AT WORLD'S END</div><p>雾气从古老树冠间缓缓落下。远处传来瀑布的轰鸣，林间有某种生物刚刚经过。你来到阿尔维拉的西部边境——雾隐树海。<br>没有任务催促你。沿着道路前行，或者走进从未有人标记的小径。林间的动物会自行觅食、饮水、迁徙、繁殖与成长；四季更替会改变食物供给和森林植被。</p><button id="startButton">进入雾隐树海</button><div class="controls"><span><b>WASD</b> 行走</span><span><b>鼠标</b> 观察</span><span><b>Shift</b> 奔跑</span><span><b>E</b> 观察 / 互动</span><span><b>M</b> 地图</span><span><b>I</b> 生态记录</span></div></div></div>
+<div id="status">PLAYABLE DEMO · THE LOST ROAD</div>
+<div id="startScreen"><div class="startCard"><div class="kicker">A WORLD STILL GROWING</div><h1>世界尽头的旅行者</h1><div class="subtitle">THE WANDERER AT WORLD'S END</div><p>你来到阿尔维拉西部边境的雾隐树海。村口的旧路标上，似乎留着一段被苔藓遮住的刻痕。<br>没有人要求你寻找答案。你可以自由旅行，也可以沿着这些残缺的线索，追寻一条早已从地图上消失的古道。</p><button id="startButton">进入雾隐树海</button><div class="controls"><span><b>WASD</b> 行走</span><span><b>鼠标</b> 观察</span><span><b>Shift</b> 奔跑</span><span><b>E</b> 观察 / 互动</span><span><b>M</b> 地图</span><span><b>J</b> 旅行手记</span><span><b>I</b> 生态记录</span></div></div></div>
 <script src="population_ecology.js"></script>
 <script src="vegetation_ecology.js"></script>
 <script src="forest_community.js"></script>
+<script src="demo_story.js"></script>
 <script src="game.js"></script>
 </body>
 </html>

@@ -33,6 +33,9 @@ with sync_playwright() as p:
     page.set_content(html,wait_until='load')
     page.wait_for_function("window.__gameDebug && window.__gameDebug.getState().version==='0.5.0'",timeout=30000)
     state=page.evaluate('window.__gameDebug.getState()')
+    assert page.locator('#journeyObjective').count()==1
+    assert page.locator('#journalButton').count()==1
+    assert page.evaluate('window.__gameDebug.storyState().currentId')=='village'
     assert state['meshBatches']>=8 and state['caveBatches']>=3,state
     assert state['terrainVertices']>10000,state
     assert len(page.evaluate('window.__gameDebug.landmarks'))>=8

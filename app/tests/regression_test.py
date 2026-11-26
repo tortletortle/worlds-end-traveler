@@ -31,7 +31,7 @@ with sync_playwright() as p:
     page=browser.new_page(viewport={'width':1440,'height':900})
     page.on('pageerror',lambda e:errors.append(str(e)))
     page.set_content(html,wait_until='load')
-    page.wait_for_function("window.__gameDebug && window.__gameDebug.getState().version==='0.5.0'",timeout=30000)
+    page.wait_for_function("window.__gameDebug && window.__gameDebug.getState().version==='0.7.0-demo'",timeout=30000)
     state=page.evaluate('window.__gameDebug.getState()')
     assert page.locator('#journeyObjective').count()==1
     assert page.locator('#journalButton').count()==1

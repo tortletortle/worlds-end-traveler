@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - visual/v0.6-fern-understory
+      - feature/demo-lost-road
   pull_request:
     branches:
       - main
+      - visual/v0.6-fern-understory
 jobs:
   browser-regression:
     runs-on: ubuntu-latest
